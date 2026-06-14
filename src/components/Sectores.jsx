@@ -29,6 +29,7 @@ export default function Sectores() {
         duration: 0.6,
         stagger: 0.08,
         ease: 'power3.out',
+        clearProps: 'transform,opacity',
         scrollTrigger: {
           trigger: gridRef.current,
           start: 'top 82%',

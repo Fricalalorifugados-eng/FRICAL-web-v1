@@ -37,6 +37,7 @@ export default function Servicios() {
         duration: 0.8,
         stagger: 0.15,
         ease: 'power3.out',
+        clearProps: 'transform,opacity',
         scrollTrigger: { trigger: cardsRef.current, start: 'top 80%' },
       })
     }, sectionRef)

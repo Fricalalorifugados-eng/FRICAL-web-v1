@@ -66,6 +66,7 @@ export default function TrabajaConNosotros() {
       })
       gsap.from(benRef.current?.querySelectorAll('[data-card]') || [], {
         y: 40, opacity: 0, duration: 0.65, stagger: 0.1, ease: 'power3.out',
+        clearProps: 'transform,opacity',
         scrollTrigger: { trigger: benRef.current, start: 'top 80%' },
       })
       gsap.from(vacRef.current, {

@@ -29,6 +29,7 @@ export default function Testimonios() {
         duration: 0.75,
         stagger: 0.15,
         ease: 'power3.out',
+        clearProps: 'transform,opacity',
         scrollTrigger: {
           trigger: cardsRef.current,
           start: 'top 80%',
