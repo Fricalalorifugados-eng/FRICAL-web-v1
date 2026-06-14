@@ -34,12 +34,6 @@ function IconTikTok() {
 export default function Footer() {
   const year = new Date().getFullYear()
 
-  const scroll = (e, href) => {
-    if (!href.startsWith('#')) return
-    e.preventDefault()
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <footer className={styles.footer}>
       <div className={styles.top}>
@@ -114,7 +108,7 @@ export default function Footer() {
                   <Link to="/servicios/climatizacion">Climatización Industrial</Link>
                 </li>
                 <li>
-                  <a href="#proceso" onClick={(e) => scroll(e, '#proceso')}>Cómo trabajamos</a>
+                  <a href="/#proceso">Cómo trabajamos</a>
                 </li>
                 <li>
                   <Link to="/configurador">Configurador de presupuesto</Link>
@@ -157,12 +151,12 @@ export default function Footer() {
                 <li className={styles.addr}>{contacto.direccion}</li>
                 <li className={styles.horario}>{contacto.horario}</li>
               </ul>
-              <a
-                href="/#contacto"
+              <Link
+                to="/configurador"
                 className={`btn-primary ${styles.footerCta}`}
               >
                 Pedir presupuesto
-              </a>
+              </Link>
             </div>
           </div>
         </div>
