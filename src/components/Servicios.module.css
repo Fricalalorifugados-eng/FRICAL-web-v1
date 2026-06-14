@@ -1,0 +1,151 @@
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--frical-black);
+}
+
+.header {
+  max-width: 600px;
+  margin-bottom: 64px;
+}
+
+.accent {
+  color: var(--frical-green);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.card {
+  position: relative;
+  background: var(--frical-ink);
+  border: 1px solid rgba(126, 217, 87, 0.08);
+  border-radius: 12px;
+  padding: 40px 36px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  /* Flex column so cardLink can be pushed to bottom with margin-top:auto */
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: rgba(126, 217, 87, 0.28);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(126, 217, 87, 0.1);
+}
+
+.cardDestacado {
+  border-color: rgba(126, 217, 87, 0.22);
+  background: linear-gradient(145deg, rgba(126, 217, 87, 0.04) 0%, var(--frical-ink) 60%);
+}
+
+.cardDestacado:hover {
+  border-color: rgba(126, 217, 87, 0.45);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 40px rgba(126, 217, 87, 0.08);
+}
+
+.especialidadBadge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--frical-black);
+  background: var(--frical-green);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.card:hover .cardGlow {
+  opacity: 1;
+}
+
+.cardGlow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(126, 217, 87, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(126, 217, 87, 0.07);
+  border: 1px solid rgba(126, 217, 87, 0.12);
+  border-radius: 14px;
+  color: var(--frical-green);
+  margin-bottom: 28px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover .iconWrap {
+  background: rgba(126, 217, 87, 0.12);
+  border-color: rgba(126, 217, 87, 0.25);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--frical-white);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--frical-mist);
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--frical-green);
+  text-transform: uppercase;
+  transition: gap 0.2s ease, opacity 0.2s ease;
+}
+
+.cardLink:hover {
+  gap: 12px;
+  opacity: 0.85;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 32px 28px;
+  }
+}

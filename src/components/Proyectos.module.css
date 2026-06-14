@@ -1,0 +1,172 @@
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--frical-ink);
+}
+
+.header {
+  max-width: 600px;
+  margin-bottom: 56px;
+}
+
+.accent {
+  color: var(--frical-green);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--frical-coal);
+  border: 1px solid rgba(126, 217, 87, 0.07);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(126, 217, 87, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.4);
+}
+
+.cardImage {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+/* Real photo — covers gradient background when it loads */
+.cardImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .cardImg {
+  transform: scale(1.04);
+}
+
+.imageGlow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.imagePipes {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 24px;
+  z-index: 2;
+}
+
+.pipe {
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(126, 217, 87, 0.08), rgba(126, 217, 87, 0.15), transparent);
+  border-radius: 2px;
+}
+
+.dateBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(126, 217, 87, 0.18);
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-width: 46px;
+  text-align: center;
+}
+
+.dateDay {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--frical-white);
+  line-height: 1;
+}
+
+.dateMon {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--frical-green);
+  line-height: 1.2;
+}
+
+.dateYear {
+  font-size: 10px;
+  color: var(--frical-mist);
+  opacity: 0.6;
+  line-height: 1.4;
+}
+
+.cardBody {
+  padding: 24px;
+}
+
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.cat {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--frical-white);
+  line-height: 1.3;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--frical-mist);
+  opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

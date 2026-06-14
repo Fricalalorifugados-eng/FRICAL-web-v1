@@ -1,0 +1,218 @@
+.footer {
+  background: var(--frical-black);
+  border-top: 1px solid rgba(126, 217, 87, 0.08);
+}
+
+.top {
+  padding: 80px 0 64px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.4fr 1fr;
+  gap: 48px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.logoSub {
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--frical-mist);
+  opacity: 0.5;
+}
+
+.brandDesc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--frical-mist);
+  opacity: 0.65;
+}
+
+.cif {
+  font-size: 11px;
+  color: var(--frical-mist);
+  opacity: 0.35;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(126, 217, 87, 0.06);
+  border: 1px solid rgba(126, 217, 87, 0.1);
+  color: var(--frical-mist);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.socialLink:hover {
+  background: rgba(126, 217, 87, 0.14);
+  border-color: rgba(126, 217, 87, 0.3);
+  color: var(--frical-green);
+  transform: translateY(-2px);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.colTitle {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--frical-mist);
+  opacity: 0.5;
+}
+
+.colList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.colList a {
+  font-size: 14px;
+  color: var(--frical-mist);
+  opacity: 0.75;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  line-height: 1.4;
+}
+
+.colList a:hover {
+  color: var(--frical-green);
+  opacity: 1;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactList a {
+  font-size: 14px;
+  color: var(--frical-mist);
+  opacity: 0.75;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.contactList a:hover {
+  color: var(--frical-green);
+  opacity: 1;
+}
+
+.addr,
+.horario {
+  font-size: 13px;
+  color: var(--frical-mist);
+  opacity: 0.5;
+  line-height: 1.5;
+}
+
+.footerCta {
+  font-size: 13px !important;
+  padding: 10px 20px !important;
+  margin-top: 8px;
+  display: inline-flex;
+}
+
+.bottom {
+  border-top: 1px solid rgba(126, 217, 87, 0.06);
+  padding: 24px 0;
+}
+
+.bottomInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.copy {
+  font-size: 12.5px;
+  color: var(--frical-mist);
+  opacity: 0.4;
+}
+
+.legal {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.legal a {
+  font-size: 12.5px;
+  color: var(--frical-mist);
+  opacity: 0.4;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.legal a:hover {
+  opacity: 0.8;
+  color: var(--frical-green);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand {
+    grid-column: auto;
+  }
+
+  .bottomInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .legal {
+    gap: 16px;
+  }
+}

@@ -1,0 +1,372 @@
+/* ══════════════════════════════════════════════════
+   COOKIE BANNER
+   ══════════════════════════════════════════════════ */
+
+/* ── Banner bar ──────────────────────────────────── */
+
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9000;
+  background: var(--frical-coal);
+  border-top: 1px solid rgba(126, 217, 87, 0.15);
+  box-shadow: 0 -6px 40px rgba(0, 0, 0, 0.5);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--frical-mist);
+}
+
+.textLink {
+  color: var(--frical-green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.15s ease;
+}
+
+.textLink:hover {
+  opacity: 0.8;
+}
+
+/* ── Banner action buttons ───────────────────────── */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/*
+ * .btnAccept / .btnSecondary are local compact variants of the
+ * global .btn-primary / .btn-secondary, sized for the banner.
+ */
+.btnAccept {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--frical-green);
+  color: var(--frical-black);
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 9px 20px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.btnAccept:hover {
+  background: var(--frical-green-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(126, 217, 87, 0.3);
+}
+
+.btnAccept:active {
+  transform: translateY(0);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--frical-mist);
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 9px 16px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(185, 194, 187, 0.2);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.btnSecondary:hover {
+  border-color: rgba(126, 217, 87, 0.45);
+  color: var(--frical-green);
+  transform: translateY(-1px);
+}
+
+.btnSecondary:active {
+  transform: translateY(0);
+}
+
+/* ── Modal overlay ───────────────────────────────── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9010;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: overlayIn 0.18s ease forwards;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal card ──────────────────────────────────── */
+
+.modal {
+  background: var(--frical-ink);
+  border: 1px solid rgba(126, 217, 87, 0.12);
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalIn 0.25s ease forwards;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.modalTitle {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--frical-white);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 6px;
+  background: rgba(185, 194, 187, 0.06);
+  border: 1px solid rgba(185, 194, 187, 0.12);
+  color: var(--frical-mist);
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.closeBtn:hover {
+  color: var(--frical-white);
+  background: rgba(185, 194, 187, 0.12);
+}
+
+.modalIntro {
+  font-size: 13.5px;
+  color: var(--frical-mist);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ── Cookie type list ────────────────────────────── */
+
+.cookieList {
+  border-top: 1px solid rgba(126, 217, 87, 0.1);
+  margin-bottom: 28px;
+}
+
+.cookieItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(126, 217, 87, 0.08);
+}
+
+.cookieInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.cookieName {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--frical-white);
+  margin-bottom: 4px;
+}
+
+.cookieDesc {
+  display: block;
+  font-size: 12.5px;
+  color: var(--frical-mist);
+  line-height: 1.5;
+}
+
+.cookieBadge {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--frical-green);
+  background: rgba(126, 217, 87, 0.08);
+  border: 1px solid rgba(126, 217, 87, 0.2);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+/* ── Toggle switch ───────────────────────────────── */
+
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: rgba(185, 194, 187, 0.1);
+  border: 1.5px solid rgba(185, 194, 187, 0.18);
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.toggle:not(.toggleDisabled):hover {
+  border-color: rgba(126, 217, 87, 0.4);
+}
+
+.toggleOn {
+  background: var(--frical-green);
+  border-color: var(--frical-green);
+}
+
+.toggleDisabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--frical-mist);
+  transition:
+    transform var(--transition-base),
+    background var(--transition-base);
+  pointer-events: none;
+}
+
+.toggleOn .toggleThumb {
+  transform: translateX(20px);
+  background: var(--frical-black);
+}
+
+/* ── Modal action row ────────────────────────────── */
+
+.modalActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ── Visually hidden (a11y) ──────────────────────── */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════ */
+
+@media (max-width: 720px) {
+  .inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 18px 20px 22px;
+  }
+
+  .actions {
+    /* Stack buttons; reverse order so Accept is on top (most prominent) */
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .btnAccept,
+  .btnSecondary {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .modalActions .btnAccept,
+  .modalActions .btnSecondary {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14.5px;
+  }
+}
