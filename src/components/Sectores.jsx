@@ -54,7 +54,7 @@ export default function Sectores() {
         <div ref={gridRef} className={styles.grid}>
           {sectores.map((s) => (
             <div key={s.id} className={styles.chip}>
-              <div className={styles.chipIcon}>{ICONS[s.id]}</div>
+              <div className={styles.chipIcon}>{ICONS[s.slug || s.id]}</div>
               <div className={styles.chipText}>
                 <span className={styles.chipName}>{s.nombre}</span>
                 <span className={styles.chipDesc}>{s.descripcion}</span>

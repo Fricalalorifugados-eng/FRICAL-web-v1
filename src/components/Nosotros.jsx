@@ -99,7 +99,7 @@ export default function Nosotros() {
             </div>
 
             <div className={styles.badge} aria-label="25 más años de experiencia">
-              <span className={styles.badgeNum}>25<span>+</span></span>
+              <span className={styles.badgeNum}><span>+</span>25</span>
               <span className={styles.badgeText}>años de<br />experiencia</span>
             </div>
 

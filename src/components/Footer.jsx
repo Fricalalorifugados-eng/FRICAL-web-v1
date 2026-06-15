@@ -154,7 +154,7 @@ export default function Footer() {
         <div className="container">
           <div className={styles.bottomInner}>
             <p className={styles.copy}>
-              &copy; {year} {contacto.empresa}. Todos los derechos reservados.
+              <Link to="/admin" className={styles.copyAdmin}>&copy;</Link> {year} {contacto.empresa}. Todos los derechos reservados.
             </p>
             <nav aria-label="Páginas legales">
               <ul className={styles.legal}>

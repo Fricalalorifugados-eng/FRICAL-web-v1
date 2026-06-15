@@ -162,6 +162,11 @@
   opacity: 0.4;
 }
 
+.copyAdmin {
+  color: inherit;
+  text-decoration: none;
+}
+
 .legal {
   display: flex;
   align-items: center;
