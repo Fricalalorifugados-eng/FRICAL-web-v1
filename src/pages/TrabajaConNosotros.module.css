@@ -195,16 +195,31 @@
   background: var(--frical-coal);
   border: 1px solid rgba(126, 217, 87, 0.08);
   border-radius: 12px;
-  padding: 32px 36px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: start;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   transition: border-color 0.25s ease;
 }
 
 .vacCard:hover {
   border-color: rgba(126, 217, 87, 0.2);
+}
+
+.vacImgZone {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--frical-ink);
+}
+
+.vacCardBody {
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  flex: 1;
 }
 
 .vacPuesto {
@@ -526,7 +541,7 @@
     max-width: 420px;
     margin: 0 auto;
   }
-  .vacCard {
+  .vacCardBody {
     grid-template-columns: 1fr;
   }
   .formCard { padding: 32px 24px; }

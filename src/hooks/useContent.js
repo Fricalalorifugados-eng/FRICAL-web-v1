@@ -115,6 +115,21 @@ export function useSectores() {
   return data
 }
 
+export function useOfertas() {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    supabase
+      .from('job_offers')
+      .select('*')
+      .eq('activa', true)
+      .order('orden')
+      .then(({ data: rows }) => {
+        if (rows?.length) setData(rows)
+      })
+  }, [])
+  return data
+}
+
 export function useContacto() {
   const [data, setData] = useState(fbContacto)
   useEffect(() => {

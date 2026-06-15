@@ -7,9 +7,9 @@ import { useSeo } from '../hooks/useSeo'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
-import { vacantes, puestosInteres } from '../data/empleo'
-import { Check } from 'lucide-react'
+import { puestosInteres } from '../data/empleo'
 import { supabase } from '../lib/supabase'
+import { useOfertas } from '../hooks/useContent'
 import styles from './TrabajaConNosotros.module.css'
 
 // ─── Beneficios ───────────────────────────────────────────────────────────────
@@ -54,6 +54,8 @@ export default function TrabajaConNosotros() {
   const benRef   = useRef(null)
   const vacRef   = useRef(null)
   const formRef  = useRef(null)
+
+  const ofertas = useOfertas()
 
   const [form, setForm] = useState(INITIAL_FORM)
   const [status, setStatus]   = useState('idle')
@@ -257,7 +259,7 @@ export default function TrabajaConNosotros() {
             </div>
 
             <div ref={vacRef}>
-              {vacantes.length === 0 ? (
+              {ofertas.length === 0 ? (
                 <div className={styles.vacEmpty}>
                   <div className={styles.vacEmptyIcon}>
                     <Briefcase size={28} aria-hidden="true" />
@@ -280,33 +282,33 @@ export default function TrabajaConNosotros() {
                 </div>
               ) : (
                 <div className={styles.vacGrid}>
-                  {vacantes.map((v) => (
+                  {ofertas.map((v) => (
                     <article key={v.id} className={styles.vacCard}>
-                      <div>
-                        <h3 className={styles.vacPuesto}>{v.puesto}</h3>
-                        <div className={styles.vacMeta}>
-                          <span className={styles.vacTag}>{v.tipo}</span>
-                          <span className={styles.vacTag}>{v.ubicacion}</span>
+                      {v.imagen_url && (
+                        <div
+                          className={styles.vacImgZone}
+                          style={{ backgroundImage: `url('${v.imagen_url}')` }}
+                          role="img"
+                          aria-label={v.titulo}
+                        />
+                      )}
+                      <div className={styles.vacCardBody}>
+                        <div>
+                          <h3 className={styles.vacPuesto}>{v.titulo}</h3>
+                          <div className={styles.vacMeta}>
+                            <span className={styles.vacTag}>{v.tipo}</span>
+                            <span className={styles.vacTag}>{v.ubicacion}</span>
+                          </div>
+                          <p className={styles.vacDesc}>{v.descripcion}</p>
                         </div>
-                        <p className={styles.vacDesc}>{v.descripcion}</p>
-                        {v.requisitos?.length > 0 && (
-                          <ul className={styles.vacReqs} aria-label="Requisitos">
-                            {v.requisitos.map((r, i) => (
-                              <li key={i} className={styles.vacReq}>
-                                <Check size={12} className={styles.vacReqIcon} aria-hidden="true" />
-                                {r}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+                        <button
+                          type="button"
+                          className="btn-primary"
+                          onClick={() => scrollToForm(v.titulo)}
+                        >
+                          Inscribirme
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        className="btn-primary"
-                        onClick={() => scrollToForm(v.puesto)}
-                      >
-                        Solicitar
-                      </button>
                     </article>
                   ))}
                 </div>
@@ -398,6 +400,9 @@ export default function TrabajaConNosotros() {
                           {puestosInteres.map(p => (
                             <option key={p} value={p}>{p}</option>
                           ))}
+                          {form.puesto && !puestosInteres.includes(form.puesto) && (
+                            <option value={form.puesto}>{form.puesto}</option>
+                          )}
                         </select>
                       </div>
                     </div>
