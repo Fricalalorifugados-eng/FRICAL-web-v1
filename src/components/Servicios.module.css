@@ -144,23 +144,45 @@
   }
 }
 
-/* Image zone — breaks out of card padding to go edge-to-edge */
-.cardImgZone {
-  height: 180px;
+/* Image hover overlay — fades in as card background on hover */
+.imgOverlay {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin: -40px -36px 28px;
-  flex-shrink: 0;
-  border-radius: 12px 12px 0 0;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  border-radius: 11px;
+  z-index: 0;
+}
+
+/* Dark gradient to keep text readable over the image */
+.imgOverlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.78) 100%);
+  border-radius: inherit;
+}
+
+.card:hover .imgOverlay {
+  opacity: 1;
+}
+
+/* Keep all content above the overlay */
+.especialidadBadge,
+.cardGlow,
+.iconWrap,
+.cardTitle,
+.cardDesc,
+.cardLink {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 600px) {
   .card {
     padding: 32px 28px;
-  }
-
-  .cardImgZone {
-    margin: -32px -28px 24px;
   }
 }

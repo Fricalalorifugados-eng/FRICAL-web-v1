@@ -71,7 +71,7 @@ export default function Servicios() {
               >
                 {s.imagen_url && (
                   <div
-                    className={styles.cardImgZone}
+                    className={styles.imgOverlay}
                     style={{ backgroundImage: `url('${s.imagen_url}')` }}
                     aria-hidden="true"
                   />
@@ -82,11 +82,9 @@ export default function Servicios() {
                   </div>
                 )}
                 <div className={styles.cardGlow} aria-hidden="true" />
-                {!s.imagen_url && (
-                  <div className={styles.iconWrap} aria-hidden="true">
-                    {Icon && <Icon size={36} strokeWidth={1.5} aria-hidden="true" />}
-                  </div>
-                )}
+                <div className={styles.iconWrap} aria-hidden="true">
+                  {Icon && <Icon size={36} strokeWidth={1.5} aria-hidden="true" />}
+                </div>
                 <h3 className={styles.cardTitle}>{s.titulo}</h3>
                 <p className={styles.cardDesc}>{s.descripcion}</p>
                 <Link to={s.enlace || '#'} className={styles.cardLink}>
