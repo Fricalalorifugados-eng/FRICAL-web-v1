@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ThermometerSun, Wind, Snowflake, ArrowRight } from 'lucide-react'
-import { servicios } from '../data/servicios'
+import { useServicios } from '../hooks/useContent'
 import styles from './Servicios.module.css'
 
 const ICONS = {
@@ -13,6 +13,7 @@ const ICONS = {
 }
 
 export default function Servicios() {
+  const servicios = useServicios()
   const sectionRef = useRef(null)
   const headerRef = useRef(null)
   const cardsRef = useRef(null)
@@ -62,24 +63,33 @@ export default function Servicios() {
 
         <div ref={cardsRef} className={styles.grid}>
           {servicios.map((s) => {
-            const Icon = ICONS[s.id]
+            const Icon = ICONS[s.slug || s.id]
             return (
               <article
                 key={s.id}
                 className={`${styles.card} ${s.destacado ? styles.cardDestacado : ''}`}
               >
+                {s.imagen_url && (
+                  <div
+                    className={styles.cardImgZone}
+                    style={{ backgroundImage: `url('${s.imagen_url}')` }}
+                    aria-hidden="true"
+                  />
+                )}
                 {s.destacado && (
                   <div className={styles.especialidadBadge} aria-label="Servicio principal">
                     ★ Especialidad
                   </div>
                 )}
                 <div className={styles.cardGlow} aria-hidden="true" />
-                <div className={styles.iconWrap} aria-hidden="true">
-                  {Icon && <Icon size={36} strokeWidth={1.5} aria-hidden="true" />}
-                </div>
+                {!s.imagen_url && (
+                  <div className={styles.iconWrap} aria-hidden="true">
+                    {Icon && <Icon size={36} strokeWidth={1.5} aria-hidden="true" />}
+                  </div>
+                )}
                 <h3 className={styles.cardTitle}>{s.titulo}</h3>
                 <p className={styles.cardDesc}>{s.descripcion}</p>
-                <Link to={s.enlace} className={styles.cardLink}>
+                <Link to={s.enlace || '#'} className={styles.cardLink}>
                   Más información
                   <ArrowRight size={14} aria-hidden="true" />
                 </Link>

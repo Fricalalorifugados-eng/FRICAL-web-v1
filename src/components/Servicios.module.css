@@ -144,8 +144,23 @@
   }
 }
 
+/* Image zone — breaks out of card padding to go edge-to-edge */
+.cardImgZone {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: -40px -36px 28px;
+  flex-shrink: 0;
+  border-radius: 12px 12px 0 0;
+}
+
 @media (max-width: 600px) {
   .card {
     padding: 32px 28px;
+  }
+
+  .cardImgZone {
+    margin: -32px -28px 24px;
   }
 }

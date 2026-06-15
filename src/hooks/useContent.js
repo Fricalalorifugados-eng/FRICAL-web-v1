@@ -6,6 +6,7 @@ import { proximos    as fbProximos    } from '../data/proximos'
 import { testimonios as fbTestimonios } from '../data/testimonios'
 import { sectores    as fbSectores    } from '../data/sectores'
 import { contacto    as fbContacto    } from '../data/contacto'
+import { servicios   as fbServicios   } from '../data/servicios'
 
 function dbRowToProyecto(row, index) {
   const fb = fbProyectos[index] || fbProyectos[0]
@@ -123,6 +124,21 @@ export function useOfertas() {
       .from('job_offers')
       .select('*')
       .eq('activa', true)
+      .order('orden')
+      .then(({ data: rows }) => {
+        if (rows?.length) setData(rows)
+      })
+      .catch(() => {})
+  }, [])
+  return data
+}
+
+export function useServicios() {
+  const [data, setData] = useState(fbServicios)
+  useEffect(() => {
+    supabase
+      .from('services')
+      .select('*')
       .order('orden')
       .then(({ data: rows }) => {
         if (rows?.length) setData(rows)

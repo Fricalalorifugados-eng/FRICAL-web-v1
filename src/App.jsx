@@ -23,6 +23,7 @@ import AdminProximos     from './pages/admin/AdminProximos'
 import AdminTestimonios  from './pages/admin/AdminTestimonios'
 import AdminContacto     from './pages/admin/AdminContacto'
 import AdminOfertas      from './pages/admin/AdminOfertas'
+import AdminServicios    from './pages/admin/AdminServicios'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -61,6 +62,7 @@ export default function App() {
           <Route path="testimonios"   element={<AdminTestimonios />} />
           <Route path="contacto"      element={<AdminContacto />} />
           <Route path="ofertas"       element={<AdminOfertas />} />
+          <Route path="servicios"     element={<AdminServicios />} />
         </Route>
         </Routes>
       </BrowserRouter>
