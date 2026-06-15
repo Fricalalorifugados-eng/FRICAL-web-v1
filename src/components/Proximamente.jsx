@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useProximos } from '../hooks/useContent'
@@ -6,51 +6,37 @@ import styles from './Proximamente.module.css'
 
 const CAT_COLORS = {
   Aislamiento: '#7ed957',
-  Conductos: '#5bbfe8',
+  Conductos:   '#5bbfe8',
   Climatización: '#e8a95b',
 }
 
 function ProximoCard({ proyecto }) {
-  const [imgFailed, setImgFailed] = useState(false)
-
   return (
     <article className={styles.card}>
-      {/* ── Image layer ── */}
       <div
         className={styles.imgWrap}
-        style={imgFailed ? { background: proyecto.gradiente } : undefined}
+        style={{ background: proyecto.gradiente }}
       >
-        {!imgFailed && (
-          <img
-            src={proyecto.imagen}
-            alt=""
-            aria-hidden="true"
-            className={styles.img}
-            loading="lazy"
-            onError={() => setImgFailed(true)}
-          />
-        )}
-
-        {/* Overlay: dark gradient on top of image/gradient */}
-        <div className={styles.overlay} aria-hidden="true" />
-
-        {/* Letterbox bars (top + bottom), reveal on hover via CSS */}
-        <div className={styles.barTop} aria-hidden="true" />
-        <div className={styles.barBottom} aria-hidden="true" />
-
-        {/* Scanlines texture */}
+        {/* Scanlines texture — fondo oscuro con profundidad */}
         <div className={styles.scanlines} aria-hidden="true" />
 
-        {/* ── Card content overlay ── */}
-        <div className={styles.content}>
-          {/* "PRÓXIMAMENTE" badge */}
-          <div className={styles.badge} aria-label="Próximamente">
-            <span className={styles.badgeDot} aria-hidden="true" />
-            <span className={styles.badgeText}>PRÓXIMAMENTE</span>
+        {/* "PRÓXIMAMENTE" — protagonista visual centrado */}
+        <div className={styles.proximamenteWrap} aria-hidden="true">
+          <div className={styles.proximamenteInner}>
+            <span className={styles.proximamenteLine} />
+            <span className={styles.proximamenteText}>PRÓXIMAMENTE</span>
+            <span className={styles.proximamenteLine} />
           </div>
+          {/* Barre de luz que cruza el texto */}
+          <div className={styles.lightSweep} />
+        </div>
 
+        {/* Degradado inferior para legibilidad del texto */}
+        <div className={styles.overlay} aria-hidden="true" />
+
+        {/* Contenido: categorías + título + descripción */}
+        <div className={styles.content}>
           <div className={styles.textBlock}>
-            {/* Category chips */}
             <div className={styles.cats} aria-label="Categorías">
               {proyecto.categorias.map((c) => (
                 <span
@@ -100,6 +86,7 @@ export default function Proximamente() {
         duration: 0.75,
         stagger: 0.12,
         ease: 'power3.out',
+        clearProps: 'transform,opacity',
         scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
       })
     }, sectionRef)

@@ -12,7 +12,7 @@
   color: var(--frical-green);
 }
 
-/* ── Grid ─────────────────────────────────────────────────── */
+/* ── Grid ────────────────────────────────────────────────── */
 
 .grid {
   display: grid;
@@ -20,13 +20,12 @@
   gap: 24px;
 }
 
-/* ── Card ─────────────────────────────────────────────────── */
+/* ── Card ────────────────────────────────────────────────── */
 
 .card {
   border-radius: 14px;
   overflow: hidden;
   position: relative;
-  /* Lift on hover (desktop only) */
   transition: box-shadow 0.5s ease;
 }
 
@@ -34,80 +33,15 @@
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
 }
 
-/* ── Image wrapper (aspect ratio + clip) ──────────────────── */
+/* ── Wrapper (aspect ratio + gradiente) ──────────────────── */
 
 .imgWrap {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  cursor: default;
 }
 
-/* ── The photo: desaturated + dark by default ─────────────── */
-
-.img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Grayscale + dim by default = cinematic "teaser" look */
-  filter: grayscale(100%) brightness(0.55);
-  transform: scale(1.0);
-  transition:
-    filter 0.65s ease,
-    transform 0.65s ease;
-  will-change: filter, transform;
-}
-
-/* On hover: colour returns, subtle zoom */
-.card:hover .img {
-  filter: grayscale(0%) brightness(0.8);
-  transform: scale(1.05);
-}
-
-/* ── Dark overlay ────────────────────────────────────────────
-   Ensures text is always readable on top of the image.
-   Slightly less opacity on hover so image pops. */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.88) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.15) 100%
-  );
-  transition: opacity 0.65s ease;
-  z-index: 1;
-}
-
-.card:hover .overlay {
-  opacity: 0.85;
-}
-
-/* ── Letterbox bars: collapse on hover ───────────────────── */
-
-.barTop,
-.barBottom {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 44px;
-  background: #000;
-  z-index: 2;
-  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.barTop    { top: 0; }
-.barBottom { bottom: 0; }
-
-.card:hover .barTop,
-.card:hover .barBottom {
-  height: 0;
-}
-
-/* ── Subtle scanlines ─────────────────────────────────────── */
+/* ── Scanlines — textura sutil de fondo ──────────────────── */
 
 .scanlines {
   position: absolute;
@@ -116,14 +50,115 @@
     to bottom,
     transparent,
     transparent 3px,
-    rgba(0, 0, 0, 0.06) 3px,
-    rgba(0, 0, 0, 0.06) 4px
+    rgba(0, 0, 0, 0.07) 3px,
+    rgba(0, 0, 0, 0.07) 4px
   );
   pointer-events: none;
+  z-index: 1;
+}
+
+/* ── PRÓXIMAMENTE — zona central ─────────────────────────── */
+
+.proximamenteWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  overflow: hidden; /* clip para la barra de luz */
+}
+
+.proximamenteInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  /* Empuja hacia arriba para dejar espacio al bloque de texto inferior */
+  margin-bottom: 30%;
+}
+
+/* Líneas horizontales decorativas encima y debajo del texto */
+.proximamenteLine {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--frical-green);
+  opacity: 0.35;
+  border-radius: 1px;
+}
+
+/* Texto principal */
+.proximamenteText {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 1.9vw, 20px);
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--frical-green);
+  /* Glow pulsante suave — tipo letrero cinematográfico */
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(126, 217, 87, 0.3),
+      0 0 24px rgba(126, 217, 87, 0.1);
+    opacity: 0.85;
+  }
+  50% {
+    text-shadow:
+      0 0 18px rgba(126, 217, 87, 0.65),
+      0 0 40px rgba(126, 217, 87, 0.25),
+      0 0 70px rgba(126, 217, 87, 0.08);
+    opacity: 1;
+  }
+}
+
+/* Barra de luz diagonal que barre el texto — efecto cine */
+.lightSweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(126, 217, 87, 0.07) 45%,
+    rgba(126, 217, 87, 0.18) 50%,
+    rgba(126, 217, 87, 0.07) 55%,
+    transparent 80%
+  );
+  transform: translateX(-100%) skewX(-12deg);
+  animation: lightSweep 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes lightSweep {
+  0%       { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
+  5%       { opacity: 1; }
+  35%      { opacity: 1; }
+  50%      { transform: translateX(200%) skewX(-12deg); opacity: 0; }
+  100%     { transform: translateX(200%) skewX(-12deg); opacity: 0; }
+}
+
+/* ── Degradado inferior — legibilidad del texto de tarjeta ── */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.3) 45%,
+    transparent 100%
+  );
   z-index: 3;
 }
 
-/* ── Content: badge + text at the bottom ─────────────────── */
+/* ── Contenido: título y descripción ─────────────────────── */
 
 .content {
   position: absolute;
@@ -131,46 +166,9 @@
   z-index: 4;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 20px 24px 28px;
 }
-
-/* ── "PRÓXIMAMENTE" badge ────────────────────────────────── */
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(126, 217, 87, 0.14);
-  border: 1px solid rgba(126, 217, 87, 0.35);
-  border-radius: 100px;
-  padding: 5px 12px 5px 9px;
-  align-self: flex-start;
-}
-
-.badgeDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--frical-green);
-  flex-shrink: 0;
-  animation: dotPulse 1.8s ease-in-out infinite;
-}
-
-@keyframes dotPulse {
-  0%, 100% { opacity: 1;   transform: scale(1);   }
-  50%       { opacity: 0.3; transform: scale(0.65); }
-}
-
-.badgeText {
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: var(--frical-green);
-}
-
-/* ── Text block ──────────────────────────────────────────── */
 
 .textBlock {
   display: flex;
@@ -193,7 +191,7 @@
   padding: 3px 9px;
   border-radius: 100px;
   border: 1px solid;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .title {
@@ -212,38 +210,20 @@
   max-width: 52ch;
 }
 
-/* ── Touch devices: show image in colour, no letterbox ───── */
+/* ── Reducción de movimiento ─────────────────────────────── */
 
-@media (hover: none) {
-  .img {
-    filter: grayscale(0%) brightness(0.75);
-    transform: scale(1);
+@media (prefers-reduced-motion: reduce) {
+  .proximamenteText {
+    animation: none;
+    opacity: 1;
+    text-shadow: 0 0 14px rgba(126, 217, 87, 0.4);
   }
-
-  .barTop,
-  .barBottom {
+  .lightSweep {
     display: none;
   }
 }
 
-/* ── Reduced motion ──────────────────────────────────────── */
-
-@media (prefers-reduced-motion: reduce) {
-  .img {
-    transition: none;
-  }
-
-  .barTop,
-  .barBottom {
-    transition: none;
-  }
-
-  .badgeDot {
-    animation: none;
-  }
-}
-
-/* ── Responsive grid ─────────────────────────────────────── */
+/* ── Responsive ──────────────────────────────────────────── */
 
 @media (max-width: 860px) {
   .grid {
@@ -258,13 +238,7 @@
   .title {
     font-size: 18px;
   }
-
   .content {
     padding: 16px 18px 22px;
-  }
-
-  .barTop,
-  .barBottom {
-    display: none;
   }
 }
