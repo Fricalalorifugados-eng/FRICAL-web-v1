@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useProyectos } from '../hooks/useContent'
@@ -12,32 +12,32 @@ const CAT_COLORS = {
   Climatización: '#e8a95b',
 }
 
-/* Sub-component owns its own image-error state so the rest of the grid is unaffected */
 function ProyectoCard({ p }) {
-  const [imgFailed, setImgFailed] = useState(false)
   const mes = MESES[p.fecha.mes - 1]
+
+  // CSS multi-layer: photo on top, gradient as fallback underneath.
+  // If photo fails to load the browser silently shows the gradient — no JS error state needed.
+  const bgStyle = p.imagen
+    ? {
+        backgroundImage: `url('${p.imagen}'), ${p.gradiente}`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }
+    : { background: p.gradiente }
 
   return (
     <article className={styles.card}>
       <div
         className={styles.cardImage}
-        style={{ background: p.gradiente }}
+        style={bgStyle}
         role="img"
         aria-label={`Imagen del proyecto: ${p.titulo}`}
       >
-        {/* Real photo — covers gradient when it loads; hidden when missing */}
-        {!imgFailed && (
-          <img
-            src={p.imagen}
-            alt=""
-            aria-hidden="true"
-            className={styles.cardImg}
-            loading="lazy"
-            onError={() => setImgFailed(true)}
-          />
-        )}
+        {/* Subtle dark scrim so the date badge stays readable over bright photos */}
+        <div className={styles.cardScrim} aria-hidden="true" />
 
-        {/* Decorative overlay — always shown over gradient; over photo when image loads */}
+        {/* Acento glow */}
         <div
           className={styles.imageGlow}
           style={{ background: `radial-gradient(circle at 30% 40%, ${p.acento} 0%, transparent 65%)` }}

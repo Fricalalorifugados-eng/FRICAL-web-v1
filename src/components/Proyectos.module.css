@@ -36,20 +36,19 @@
   position: relative;
   height: 220px;
   overflow: hidden;
+  transition: background-size 0.4s ease;
 }
 
-/* Real photo — covers gradient background when it loads */
-.cardImg {
+.card:hover .cardImage {
+  background-size: 110% !important;
+}
+
+/* Subtle dark scrim — keeps date badge legible over bright photos */
+.cardScrim {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.card:hover .cardImg {
-  transform: scale(1.04);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.40) 100%);
+  z-index: 0;
 }
 
 .imageGlow {
