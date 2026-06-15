@@ -7,29 +7,32 @@ import { testimonios as fbTestimonios } from '../data/testimonios'
 import { sectores    as fbSectores    } from '../data/sectores'
 import { contacto    as fbContacto    } from '../data/contacto'
 
-// projects: imagen_url (no imagen), sin columna activo
-function dbRowToProyecto(row) {
+// projects: usa imagen_url de Supabase; si está vacía usa la imagen
+// del proyecto equivalente en el fallback estático (emparejado por posición).
+function dbRowToProyecto(row, index) {
+  const fb = fbProyectos[index] || fbProyectos[0]
   return {
     id:          row.id,
-    imagen:      row.imagen_url,
+    imagen:      row.imagen_url || fb.imagen,
     titulo:      row.titulo,
     descripcion: row.descripcion,
     categorias:  row.categorias || [],
     fecha:       { dia: row.fecha_dia, mes: row.fecha_mes, anyo: row.fecha_anyo },
-    gradiente:   row.gradiente,
-    acento:      row.acento,
+    gradiente:   row.gradiente  || fb.gradiente,
+    acento:      row.acento     || fb.acento,
   }
 }
 
-// upcoming_projects: imagen_url (no imagen), sin columna activo
-function dbRowToProximo(row) {
+// upcoming_projects: mismo patrón de fallback por posición
+function dbRowToProximo(row, index) {
+  const fb = fbProximos[index] || {}
   return {
     id:          row.id,
-    imagen:      row.imagen_url,
+    imagen:      row.imagen_url || fb.imagen || '',
     titulo:      row.titulo,
     descripcion: row.descripcion,
     categorias:  row.categorias || [],
-    gradiente:   row.gradiente,
+    gradiente:   row.gradiente  || fb.gradiente || 'linear-gradient(145deg,#0d1f2e,#020a12)',
   }
 }
 
@@ -63,7 +66,7 @@ export function useProyectos() {
       .select('*')
       .order('orden')
       .then(({ data: rows }) => {
-        if (rows?.length) setData(rows.map(dbRowToProyecto))
+        if (rows?.length) setData(rows.map((row, i) => dbRowToProyecto(row, i)))
       })
   }, [])
   return data
@@ -77,7 +80,7 @@ export function useProximos() {
       .select('*')
       .order('orden')
       .then(({ data: rows }) => {
-        if (rows?.length) setData(rows.map(dbRowToProximo))
+        if (rows?.length) setData(rows.map((row, i) => dbRowToProximo(row, i)))
       })
   }, [])
   return data
