@@ -3,33 +3,37 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl    = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-// Si las variables faltan en el build, exportamos un cliente nulo que
-// resuelve silenciosamente con datos vacíos. La web usa los datos de
-// respaldo de src/data/ y no se rompe.
+// Si las variables faltan, exportamos un cliente nulo que resuelve silenciosamente
+// con datos vacíos. La web pública usa los datos de respaldo de src/data/ y nunca
+// lanza un error que tumbe la app.
 export const supabase = (supabaseUrl && supabaseAnonKey)
   ? createClient(supabaseUrl, supabaseAnonKey)
   : nullClient()
 
 function nullClient() {
-  const empty = (v = null) => Promise.resolve({ data: v, error: null, count: 0 })
+  const empty = () => Promise.resolve({ data: null, error: null, count: 0 })
 
-  // Cadena de métodos de consulta — todos devuelven la misma cadena
-  // para poder encadenar .select().eq().order().then() sin errores.
-  const q = {
-    select:  ()  => q,
-    eq:      ()  => q,
-    order:   ()  => q,
-    single:  ()  => empty(),
-    limit:   ()  => q,
-    insert:  ()  => empty(),
-    update:  ()  => q,
-    delete:  ()  => q,
-    then:    (fn) => empty().then(fn),
-    catch:   (fn) => empty().catch(fn),
+  // Proxy que acepta CUALQUIER encadenamiento de métodos de Supabase
+  // (select, eq, order, insert, update, delete, upsert, range, ilike…)
+  // y al hacer then/await resuelve con datos vacíos sin lanzar nunca.
+  function makeQuery() {
+    const handlers = {
+      then:        (fn)  => empty().then(fn),
+      catch:       (fn)  => empty().catch(fn),
+      finally:     (fn)  => empty().finally(fn),
+      single:      ()    => empty(),
+      maybeSingle: ()    => empty(),
+    }
+    return new Proxy(handlers, {
+      get(target, prop) {
+        if (prop in target) return target[prop]
+        return () => makeQuery()
+      },
+    })
   }
 
   return {
-    from: () => q,
+    from: () => makeQuery(),
     auth: {
       getSession:         () => Promise.resolve({ data: { session: null }, error: null }),
       onAuthStateChange:  () => ({ data: { subscription: { unsubscribe: () => {} } } }),
@@ -39,8 +43,9 @@ function nullClient() {
     },
     storage: {
       from: () => ({
-        createSignedUrl:      () => Promise.resolve({ data: null, error: { message: 'Storage no disponible.' } }),
-        createSignedUploadUrl:() => Promise.resolve({ data: null, error: { message: 'Storage no disponible.' } }),
+        upload:                () => Promise.resolve({ data: null, error: { message: 'Storage no disponible.' } }),
+        createSignedUrl:       () => Promise.resolve({ data: null, error: { message: 'Storage no disponible.' } }),
+        createSignedUploadUrl: () => Promise.resolve({ data: null, error: { message: 'Storage no disponible.' } }),
       }),
     },
   }

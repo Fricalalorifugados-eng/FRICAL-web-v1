@@ -41,13 +41,21 @@ export default function AdminProyectos() {
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState(null)
+  const [dbError, setDbError] = useState(null)
   const fileRef = useRef(null)
 
   async function load() {
     setLoading(true)
-    const { data } = await supabase.from('projects').select('*').order('orden')
-    setRows(data || [])
-    setLoading(false)
+    setDbError(null)
+    try {
+      const { data, error } = await supabase.from('projects').select('*').order('orden')
+      if (error) throw error
+      setRows(data || [])
+    } catch (err) {
+      setDbError(err?.message || 'Error al cargar proyectos.')
+    } finally {
+      setLoading(false)
+    }
   }
   useEffect(() => { load() }, [])
 
@@ -169,6 +177,7 @@ export default function AdminProyectos() {
       </div>
 
       <div className={styles.content}>
+        {dbError && <div className={styles.dbError}>Error de base de datos: {dbError}</div>}
         {editing && (
           <div className={styles.editorPanel}>
             <p className={styles.editorTitle}>{editing.id ? 'Editar proyecto' : 'Nuevo proyecto'}</p>

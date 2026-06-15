@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import ErrorBoundary from './components/ErrorBoundary'
 import Home from './pages/Home'
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad'
 import PoliticaCookies from './pages/PoliticaCookies'
@@ -31,10 +32,11 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <CookieBanner />
-      <Routes>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <ScrollToTop />
+        <CookieBanner />
+        <Routes>
         {/* Sitio público */}
         <Route path="/" element={<Home />} />
         <Route path="/servicios/aislamiento-y-calorifugado" element={<AislamientoPage />} />
@@ -60,7 +62,8 @@ export default function App() {
           <Route path="contacto"      element={<AdminContacto />} />
           <Route path="ofertas"       element={<AdminOfertas />} />
         </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }

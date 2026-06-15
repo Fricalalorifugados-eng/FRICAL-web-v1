@@ -7,8 +7,6 @@ import { testimonios as fbTestimonios } from '../data/testimonios'
 import { sectores    as fbSectores    } from '../data/sectores'
 import { contacto    as fbContacto    } from '../data/contacto'
 
-// projects: usa imagen_url de Supabase; si está vacía usa la imagen
-// del proyecto equivalente en el fallback estático (emparejado por posición).
 function dbRowToProyecto(row, index) {
   const fb = fbProyectos[index] || fbProyectos[0]
   return {
@@ -23,7 +21,6 @@ function dbRowToProyecto(row, index) {
   }
 }
 
-// upcoming_projects: mismo patrón de fallback por posición
 function dbRowToProximo(row, index) {
   const fb = fbProximos[index] || {}
   return {
@@ -68,6 +65,7 @@ export function useProyectos() {
       .then(({ data: rows }) => {
         if (rows?.length) setData(rows.map((row, i) => dbRowToProyecto(row, i)))
       })
+      .catch(() => {})
   }, [])
   return data
 }
@@ -82,6 +80,7 @@ export function useProximos() {
       .then(({ data: rows }) => {
         if (rows?.length) setData(rows.map((row, i) => dbRowToProximo(row, i)))
       })
+      .catch(() => {})
   }, [])
   return data
 }
@@ -92,11 +91,12 @@ export function useTestimonios() {
     supabase
       .from('testimonials')
       .select('*')
-      .eq('visible', true)   // columna real: "visible", no "activo"
+      .eq('visible', true)
       .order('orden')
       .then(({ data: rows }) => {
         if (rows?.length) setData(rows)
       })
+      .catch(() => {})
   }, [])
   return data
 }
@@ -111,6 +111,7 @@ export function useSectores() {
       .then(({ data: rows }) => {
         if (rows?.length) setData(rows)
       })
+      .catch(() => {})
   }, [])
   return data
 }
@@ -126,6 +127,7 @@ export function useOfertas() {
       .then(({ data: rows }) => {
         if (rows?.length) setData(rows)
       })
+      .catch(() => {})
   }, [])
   return data
 }
@@ -136,11 +138,12 @@ export function useContacto() {
     supabase
       .from('contact_info')
       .select('*')
-      .eq('id', 'main')   // id TEXT 'main', no INT 1
+      .eq('id', 'main')
       .single()
       .then(({ data: row }) => {
         if (row) setData(dbRowToContacto(row))
       })
+      .catch(() => {})
   }, [])
   return data
 }

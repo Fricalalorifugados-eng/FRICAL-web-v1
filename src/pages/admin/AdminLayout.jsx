@@ -24,12 +24,16 @@ export default function AdminLayout() {
   useEffect(() => {
     if (!user) return
     async function loadCounts() {
-      const [r1, r2, r3] = await Promise.all([
-        supabase.from('messages').select('id', { count: 'exact', head: true }).eq('leido', false),
-        supabase.from('applications').select('id', { count: 'exact', head: true }).eq('leido', false),
-        supabase.from('configurator_requests').select('id', { count: 'exact', head: true }).eq('leido', false),
-      ])
-      setCounts({ msg: r1.count || 0, app: r2.count || 0, cfg: r3.count || 0 })
+      try {
+        const [r1, r2, r3] = await Promise.all([
+          supabase.from('messages').select('id', { count: 'exact', head: true }).eq('leido', false),
+          supabase.from('applications').select('id', { count: 'exact', head: true }).eq('leido', false),
+          supabase.from('configurator_requests').select('id', { count: 'exact', head: true }).eq('leido', false),
+        ])
+        setCounts({ msg: r1.count || 0, app: r2.count || 0, cfg: r3.count || 0 })
+      } catch {
+        // Si falla, los contadores se quedan en 0 — no es crítico
+      }
     }
     loadCounts()
   }, [user])

@@ -35,15 +35,23 @@ export default function AdminPresupuestos() {
   const [selected, setSelected] = useState(null)
   const [loading, setLoading]   = useState(true)
   const [adjUrl, setAdjUrl]     = useState(null)
+  const [dbError, setDbError]   = useState(null)
 
   async function load() {
     setLoading(true)
-    const { data } = await supabase
-      .from('configurator_requests')
-      .select('*')
-      .order('created_at', { ascending: false })
-    setRows(data || [])
-    setLoading(false)
+    setDbError(null)
+    try {
+      const { data, error } = await supabase
+        .from('configurator_requests')
+        .select('*')
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      setRows(data || [])
+    } catch (err) {
+      setDbError(err?.message || 'Error al cargar presupuestos.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => { load() }, [])
@@ -83,6 +91,7 @@ export default function AdminPresupuestos() {
       </div>
 
       <div className={styles.content}>
+        {dbError && <div className={styles.dbError}>Error de base de datos: {dbError}</div>}
         {loading ? (
           <p style={{ color: '#555' }}>Cargando…</p>
         ) : rows.length === 0 ? (

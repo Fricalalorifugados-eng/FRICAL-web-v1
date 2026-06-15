@@ -25,13 +25,16 @@ export default function AdminContacto() {
   const [saving, setSaving] = useState(false)
   const [saved, setSaved]   = useState(false)
   const [loading, setLoading] = useState(true)
+  const [dbError, setDbError] = useState(null)
 
   useEffect(() => {
     supabase.from('contact_info').select('*').eq('id', 'main').single()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) throw error
         if (data) setForm(data)
-        setLoading(false)
       })
+      .catch(err => setDbError(err?.message || 'Error al cargar datos de contacto.'))
+      .finally(() => setLoading(false))
   }, [])
 
   function change(k, v) {
@@ -63,6 +66,7 @@ export default function AdminContacto() {
       </div>
 
       <div className={styles.content}>
+        {dbError && <div className={styles.dbError}>Error de base de datos: {dbError}</div>}
         {loading ? (
           <p style={{ color: '#555' }}>Cargando…</p>
         ) : (

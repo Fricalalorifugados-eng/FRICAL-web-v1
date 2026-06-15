@@ -37,12 +37,20 @@ export default function AdminTestimonios() {
   const [editing, setEditing] = useState(null)
   const [saving, setSaving]   = useState(false)
   const [loading, setLoading] = useState(true)
+  const [dbError, setDbError] = useState(null)
 
   async function load() {
     setLoading(true)
-    const { data } = await supabase.from('testimonials').select('*').order('orden')
-    setRows(data || [])
-    setLoading(false)
+    setDbError(null)
+    try {
+      const { data, error } = await supabase.from('testimonials').select('*').order('orden')
+      if (error) throw error
+      setRows(data || [])
+    } catch (err) {
+      setDbError(err?.message || 'Error al cargar testimonios.')
+    } finally {
+      setLoading(false)
+    }
   }
   useEffect(() => { load() }, [])
 
@@ -95,6 +103,7 @@ export default function AdminTestimonios() {
       </div>
 
       <div className={styles.content}>
+        {dbError && <div className={styles.dbError}>Error de base de datos: {dbError}</div>}
         {editing && (
           <div className={styles.editorPanel}>
             <p className={styles.editorTitle}>{editing.id ? 'Editar testimonio' : 'Nuevo testimonio'}</p>

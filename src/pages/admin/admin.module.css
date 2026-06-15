@@ -548,6 +548,18 @@
   border-radius: 4px;
 }
 
+/* ── DB error banner ─────────────────────────────────────── */
+.dbError {
+  background: rgba(200, 40, 40, 0.08);
+  border: 1px solid rgba(200, 40, 40, 0.28);
+  border-radius: 6px;
+  color: #e07070;
+  font-size: 12.5px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 900px) {
   .splitWrap { grid-template-columns: 1fr; }
