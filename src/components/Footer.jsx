@@ -41,19 +41,7 @@ export default function Footer() {
           <div className={styles.grid}>
             <div className={styles.brand}>
               <Link to="/" className={styles.logo} aria-label="FRICAL – inicio">
-                <svg width="110" height="28" viewBox="0 0 110 28" fill="none" aria-hidden="true">
-                  <text
-                    x="0" y="22"
-                    fontFamily="Archivo, Arial Black, sans-serif"
-                    fontSize="24"
-                    fontWeight="900"
-                    fill="#7ed957"
-                  >
-                    FRICAL
-                  </text>
-                  <rect x="0" y="25" width="60" height="1.5" fill="#7ed957" opacity="0.25" rx="1" />
-                </svg>
-                <span className={styles.logoSub}>CALORIFUGADOS, S.L.</span>
+                <img src="/logo-frical.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
               </Link>
               <p className={styles.brandDesc}>
                 Especialistas en aislamiento térmico industrial y calorifugado.

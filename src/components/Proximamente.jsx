@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { proximos } from '../data/proximos'
+import { useProximos } from '../hooks/useContent'
 import styles from './Proximamente.module.css'
 
 const CAT_COLORS = {
@@ -75,6 +75,7 @@ function ProximoCard({ proyecto }) {
 }
 
 export default function Proximamente() {
+  const proximos   = useProximos()
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
   const gridRef    = useRef(null)

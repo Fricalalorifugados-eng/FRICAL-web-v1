@@ -108,13 +108,7 @@ export default function Navbar() {
             aria-label="FRICAL – volver al inicio"
             onClick={() => { setMenuOpen(false); if (isHome) window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           >
-            <svg width="110" height="28" viewBox="0 0 110 28" fill="none" aria-hidden="true">
-              <text x="0" y="22" fontFamily="Archivo, Arial Black, sans-serif" fontSize="24" fontWeight="900" fill="#7ed957">
-                FRICAL
-              </text>
-              <rect x="0" y="25" width="60" height="1.5" fill="#7ed957" opacity="0.35" rx="1" />
-            </svg>
-            <span className={styles.logoSub}>CALORIFUGADOS, S.L.</span>
+            <img src="/logo-frical.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
           </Link>
 
           {/* Nav */}

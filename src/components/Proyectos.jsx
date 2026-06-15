@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { proyectos } from '../data/proyectos'
+import { useProyectos } from '../hooks/useContent'
 import styles from './Proyectos.module.css'
 
 const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
@@ -82,6 +82,7 @@ function ProyectoCard({ p }) {
 }
 
 export default function Proyectos() {
+  const proyectos  = useProyectos()
   const sectionRef = useRef(null)
   const headerRef  = useRef(null)
   const gridRef    = useRef(null)

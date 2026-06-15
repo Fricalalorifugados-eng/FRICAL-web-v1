@@ -5,12 +5,13 @@ import {
   Pipette, Cylinder, Wind, Shield, Snowflake, Thermometer, ThermometerSun,
   Flame, Zap, Wrench, HardHat, FlaskConical, Utensils, Ship, Pill, Building,
   Building2, Layers, Clock, Star, Check, ArrowRight, ArrowLeft, Upload, File,
-  Plus, X, Send, CheckCircle, Download, Settings,
+  Plus, X, Send, CheckCircle, Download, Settings, Loader2,
 } from 'lucide-react'
 import { useSeo } from '../hooks/useSeo'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
+import { supabase } from '../lib/supabase'
 import {
   TIPOS_TRABAJO, TEMPERATURAS, MATERIALES, ACABADOS, TIPOS_EQUIPO,
   TIPOS_CONDUCTO, MATERIALES_CONDUCTO, ACCESORIOS_OPTIONS,
@@ -66,6 +67,8 @@ const INITIAL = {
   telefono: '',
   privacidad: false,
   sent: false,
+  sending: false,
+  sendError: '',
 }
 
 function reducer(state, action) {
@@ -89,8 +92,12 @@ function reducer(state, action) {
       return { ...state, stepIndex: state.stepIndex + 1 }
     case 'PREV':
       return { ...state, stepIndex: Math.max(0, state.stepIndex - 1) }
-    case 'SEND':
-      return { ...state, sent: true }
+    case 'SEND_START':
+      return { ...state, sending: true, sendError: '' }
+    case 'SEND_SUCCESS':
+      return { ...state, sending: false, sent: true }
+    case 'SEND_ERROR':
+      return { ...state, sending: false, sendError: action.error }
     default:
       return state
   }
@@ -342,7 +349,7 @@ function ContactoStep({ state, dispatch }) {
         <div className={styles.formField}>
           <label className={styles.formLabel}>Email <span>*</span></label>
           <input
-            type="email" autoComplete="email"
+            type="text" inputMode="email" autoComplete="email"
             value={state.email}
             onChange={e => dispatch({ type: 'SET', field: 'email', value: e.target.value })}
             className={styles.formInput}
@@ -352,7 +359,7 @@ function ContactoStep({ state, dispatch }) {
         <div className={styles.formField}>
           <label className={styles.formLabel}>Teléfono</label>
           <input
-            type="tel" autoComplete="tel"
+            type="text" inputMode="tel" autoComplete="tel"
             value={state.telefono}
             onChange={e => dispatch({ type: 'SET', field: 'telefono', value: e.target.value })}
             className={styles.formInput}
@@ -473,7 +480,7 @@ function generateSummaryText(state) {
   return lines.join('\n')
 }
 
-function SummaryStep({ state, dispatch }) {
+function SummaryStep({ state, onSend }) {
   const sections = buildSummary(state)
 
   const handleDownload = () => {
@@ -486,11 +493,6 @@ function SummaryStep({ state, dispatch }) {
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
-  }
-
-  const handleSend = () => {
-    // TODO Fase 2: POST a /api/configurador → email a info@fricalcalorifugados.com + inserción en Supabase
-    dispatch({ type: 'SEND' })
   }
 
   return (
@@ -509,14 +511,22 @@ function SummaryStep({ state, dispatch }) {
         </div>
       ))}
 
+      {state.sendError && (
+        <p role="alert" style={{ color: '#e53935', fontSize: '13px', margin: '8px 0 0' }}>
+          {state.sendError}
+        </p>
+      )}
+
       <div className={styles.summaryActions}>
-        <button type="button" className={styles.dlBtn} onClick={handleDownload}>
+        <button type="button" className={styles.dlBtn} onClick={handleDownload} disabled={state.sending}>
           <Download size={15} aria-hidden="true" />
           Descargar resumen
         </button>
-        <button type="button" className="btn-primary" onClick={handleSend}>
-          <Send size={15} aria-hidden="true" />
-          Enviar solicitud a FRICAL
+        <button type="button" className="btn-primary" onClick={onSend} disabled={state.sending}>
+          {state.sending
+            ? <><Loader2 size={15} strokeWidth={1.8} style={{ animation: 'spin 1s linear infinite' }} aria-hidden="true" /> Enviando...</>
+            : <><Send size={15} aria-hidden="true" /> Enviar solicitud a FRICAL</>
+          }
         </button>
       </div>
     </div>
@@ -564,6 +574,73 @@ export default function Configurador() {
   const handleSkipUpload = () => {
     dirRef.current = 1
     dispatch({ type: 'NEXT' })
+  }
+
+  const handleSend = async () => {
+    dispatch({ type: 'SEND_START' })
+    try {
+      // 1. Subir primer plano al bucket (si existe)
+      let adjunto_url = ''
+      if (state.planos && state.planos.length > 0) {
+        const file = state.planos[0]
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
+        const path = `adjuntos/${Date.now()}-${safeName}`
+        const { error: upErr } = await supabase.storage
+          .from('private-uploads')
+          .upload(path, file, { contentType: file.type })
+        if (upErr) throw new Error('No se pudo subir el adjunto. Comprueba tu conexión e inténtalo de nuevo.')
+        adjunto_url = path
+      }
+
+      // 2. Construir objeto de configuración técnica
+      const configuracion = {
+        diametros: state.diametros.filter(d => d.value).map(d => d.value),
+        metrosLineales: state.metrosLineales,
+        grosorAislamiento: state.grosorAislamiento,
+        grosorAislamientoDesconocido: state.grosorAislamientoDesconocido,
+        temperaturaAislamiento: state.temperaturaAislamiento,
+        materialAislamiento: state.materialAislamiento,
+        acabadoAislamiento: state.acabadoAislamiento,
+        tipoEquipo: state.tipoEquipo,
+        dimensiones: state.dimensiones,
+        grosorCalorifugado: state.grosorCalorifugado,
+        grosorCalorifugadoDesconocido: state.grosorCalorifugadoDesconocido,
+        temperaturaCalorifugado: state.temperaturaCalorifugado,
+        materialCalorifugado: state.materialCalorifugado,
+        acabadoCalorifugado: state.acabadoCalorifugado,
+        tipoConducto: state.tipoConducto,
+        materialConducto: state.materialConducto,
+        metrosConducto: state.metrosConducto,
+        accesoriosConducto: state.accesoriosConducto,
+        elementoProteger: state.elementoProteger,
+        solucionSectorizacion: state.solucionSectorizacion,
+        metrosSectorizacion: state.metrosSectorizacion,
+      }
+
+      // 3. Enviar a la API
+      const res = await fetch('/api/configurador', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre:       state.nombre.trim(),
+          empresa:      state.empresa.trim(),
+          email:        state.email.trim(),
+          telefono:     state.telefono.trim(),
+          configuracion,
+          tipos_trabajo: state.tiposWork,
+          sector:       state.sector,
+          ubicacion:    state.ubicacion,
+          plazo:        state.plazo,
+          adjunto_url,
+        }),
+      })
+      let data = {}
+      try { data = await res.json() } catch { /* API no corriendo */ }
+      if (!res.ok) throw new Error(data.error || `Error del servidor (${res.status}).`)
+      dispatch({ type: 'SEND_SUCCESS' })
+    } catch (err) {
+      dispatch({ type: 'SEND_ERROR', error: err.message || 'No se pudo enviar la solicitud. Inténtalo de nuevo.' })
+    }
   }
 
   const stepValid = isValid(step, state)
@@ -647,7 +724,7 @@ export default function Configurador() {
           {step?.type === 'diametros'  && <DiametrosStep state={state} dispatch={dispatch} />}
           {step?.type === 'upload'     && <UploadStep state={state} dispatch={dispatch} onSkip={handleSkipUpload} />}
           {step?.type === 'contacto'   && <ContactoStep state={state} dispatch={dispatch} />}
-          {step?.type === 'summary'    && <SummaryStep state={state} dispatch={dispatch} />}
+          {step?.type === 'summary'    && <SummaryStep state={state} onSend={handleSend} />}
         </div>
 
         {/* Navigation — hidden on summary (summary has its own send button) */}
@@ -688,6 +765,7 @@ export default function Configurador() {
               type="button"
               className={styles.navBack}
               onClick={handlePrev}
+              disabled={state.sending}
               aria-label="Volver al paso anterior"
             >
               <ArrowLeft size={15} aria-hidden="true" />

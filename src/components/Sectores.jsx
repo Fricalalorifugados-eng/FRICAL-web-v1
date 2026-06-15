@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FlaskConical, Utensils, Zap, Ship, Pill, Building2 } from 'lucide-react'
-import { sectores } from '../data/sectores'
+import { useSectores } from '../hooks/useContent'
 import styles from './Sectores.module.css'
 
 const ICONS = {
@@ -15,8 +15,9 @@ const ICONS = {
 }
 
 export default function Sectores() {
+  const sectores   = useSectores()
   const sectionRef = useRef(null)
-  const gridRef = useRef(null)
+  const gridRef    = useRef(null)
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches

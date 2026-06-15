@@ -2,13 +2,14 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Users, HardHat, Layers, Star, Upload, Send, CheckCircle, Briefcase } from 'lucide-react'
+import { Users, HardHat, Layers, Star, Upload, Send, CheckCircle, Briefcase, Loader2 } from 'lucide-react'
 import { useSeo } from '../hooks/useSeo'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
 import { vacantes, puestosInteres } from '../data/empleo'
 import { Check } from 'lucide-react'
+import { supabase } from '../lib/supabase'
 import styles from './TrabajaConNosotros.module.css'
 
 // ─── Beneficios ───────────────────────────────────────────────────────────────
@@ -41,6 +42,7 @@ const INITIAL_FORM = {
   puesto: '', mensaje: '', cv: null, privacidad: false,
 }
 
+// status: 'idle' | 'uploading' | 'sending' | 'sent' | 'error'
 export default function TrabajaConNosotros() {
   useSeo({
     title: 'Trabaja con nosotros | FRICAL CALORIFUGADOS, S.L.',
@@ -54,7 +56,8 @@ export default function TrabajaConNosotros() {
   const formRef  = useRef(null)
 
   const [form, setForm] = useState(INITIAL_FORM)
-  const [sent, setSent] = useState(false)
+  const [status, setStatus]   = useState('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -95,12 +98,62 @@ export default function TrabajaConNosotros() {
     document.getElementById('candidatura')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO Fase 2: POST a /api/empleo con FormData (nombre, email, teléfono, puesto, mensaje, cv)
-    // y envío de email a info@fricalcalorifugados.com vía Resend / Nodemailer.
-    setSent(true)
+    setErrorMsg('')
+
+    const emailTrimmed = form.email.trim()
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)) {
+      setStatus('error')
+      setErrorMsg('El email no tiene un formato válido.')
+      return
+    }
+
+    let cv_url = ''
+
+    // 1. Subir CV si existe
+    if (form.cv) {
+      setStatus('uploading')
+      const safeName = form.cv.name.replace(/[^a-zA-Z0-9._-]/g, '_')
+      const path = `cvs/${Date.now()}-${safeName}`
+      const { error: upErr } = await supabase.storage
+        .from('private-uploads')
+        .upload(path, form.cv, { contentType: form.cv.type })
+      if (upErr) {
+        setStatus('error')
+        setErrorMsg('No se pudo subir el CV. Comprueba tu conexión e inténtalo de nuevo.')
+        return
+      }
+      cv_url = path
+    }
+
+    // 2. Enviar candidatura
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/empleo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre:         form.nombre.trim(),
+          email:          emailTrimmed,
+          telefono:       form.telefono.trim(),
+          puesto_interes: form.puesto,
+          mensaje:        form.mensaje.trim(),
+          cv_url,
+        }),
+      })
+      let data = {}
+      try { data = await res.json() } catch { /* API no corriendo */ }
+      if (!res.ok) throw new Error(data.error || `Error del servidor (${res.status}).`)
+      setStatus('sent')
+    } catch (err) {
+      setStatus('error')
+      setErrorMsg(err.message || 'No se pudo enviar la candidatura. Inténtalo de nuevo.')
+    }
   }
+
+  const busy = status === 'uploading' || status === 'sending'
+  const btnLabel = status === 'uploading' ? 'Subiendo CV...' : status === 'sending' ? 'Enviando...' : 'Enviar candidatura'
 
   return (
     <>
@@ -266,8 +319,8 @@ export default function TrabajaConNosotros() {
         <section id="candidatura" className={styles.formSection}>
           <div className="container">
             <div ref={formRef} className={styles.formCard}>
-              {sent ? (
-                <div className={styles.successMsg}>
+              {status === 'sent' ? (
+                <div className={styles.successMsg} role="status">
                   <div className={styles.successIcon}>
                     <CheckCircle size={36} aria-hidden="true" />
                   </div>
@@ -298,6 +351,7 @@ export default function TrabajaConNosotros() {
                           placeholder="Tu nombre completo"
                           value={form.nombre}
                           onChange={handleChange}
+                          disabled={busy}
                         />
                       </div>
                       <div className={styles.field}>
@@ -305,12 +359,13 @@ export default function TrabajaConNosotros() {
                           Email <span aria-hidden="true">*</span>
                         </label>
                         <input
-                          id="tc-email" name="email" type="email" required
+                          id="tc-email" name="email" type="text" inputMode="email"
                           autoComplete="email"
                           className={styles.input}
                           placeholder="tu@email.com"
                           value={form.email}
                           onChange={handleChange}
+                          disabled={busy}
                         />
                       </div>
                     </div>
@@ -319,12 +374,13 @@ export default function TrabajaConNosotros() {
                       <div className={styles.field}>
                         <label htmlFor="tc-tel" className={styles.label}>Teléfono</label>
                         <input
-                          id="tc-tel" name="telefono" type="tel"
+                          id="tc-tel" name="telefono" type="text" inputMode="tel"
                           autoComplete="tel"
                           className={styles.input}
                           placeholder="+34 600 000 000"
                           value={form.telefono}
                           onChange={handleChange}
+                          disabled={busy}
                         />
                       </div>
                       <div className={styles.field}>
@@ -336,6 +392,7 @@ export default function TrabajaConNosotros() {
                           className={styles.select}
                           value={form.puesto}
                           onChange={handleChange}
+                          disabled={busy}
                         >
                           <option value="">Selecciona un puesto</option>
                           {puestosInteres.map(p => (
@@ -355,12 +412,13 @@ export default function TrabajaConNosotros() {
                         placeholder="Experiencia, habilidades, por qué quieres trabajar en FRICAL..."
                         value={form.mensaje}
                         onChange={handleChange}
+                        disabled={busy}
                       />
                     </div>
 
                     <div className={styles.fileWrap}>
                       <span className={styles.label}>Adjuntar CV</span>
-                      <label htmlFor="tc-cv" className={styles.fileLabel}>
+                      <label htmlFor="tc-cv" className={`${styles.fileLabel} ${busy ? styles.fileLabelDisabled : ''}`}>
                         <Upload size={18} className={styles.fileLabelIcon} aria-hidden="true" />
                         {form.cv
                           ? <span className={styles.fileName}>{form.cv.name}</span>
@@ -372,6 +430,7 @@ export default function TrabajaConNosotros() {
                         accept=".pdf,.doc,.docx"
                         className={styles.fileInput}
                         onChange={handleChange}
+                        disabled={busy}
                       />
                       <span className={styles.fileHint}>PDF, DOC o DOCX — máx. 10 MB</span>
                     </div>
@@ -382,6 +441,7 @@ export default function TrabajaConNosotros() {
                         className={styles.checkbox}
                         checked={form.privacidad}
                         onChange={handleChange}
+                        disabled={busy}
                       />
                       <label htmlFor="tc-privacidad" className={styles.checkLabel}>
                         He leído y acepto la{' '}
@@ -397,13 +457,21 @@ export default function TrabajaConNosotros() {
                       </label>
                     </div>
 
+                    {status === 'error' && (
+                      <p role="alert" style={{ color: '#e53935', fontSize: '13px', margin: '0 0 4px' }}>
+                        {errorMsg}
+                      </p>
+                    )}
+
                     <button
                       type="submit"
                       className="btn-primary"
-                      disabled={!form.nombre || !form.email || !form.puesto || !form.mensaje || !form.privacidad}
+                      disabled={busy || !form.nombre || !form.email || !form.puesto || !form.mensaje || !form.privacidad}
                     >
-                      <Send size={15} aria-hidden="true" />
-                      Enviar candidatura
+                      {busy
+                        ? <><Loader2 size={15} strokeWidth={1.8} style={{ animation: 'spin 1s linear infinite' }} aria-hidden="true" /> {btnLabel}</>
+                        : <><Send size={15} aria-hidden="true" /> Enviar candidatura</>
+                      }
                     </button>
                   </form>
                 </>

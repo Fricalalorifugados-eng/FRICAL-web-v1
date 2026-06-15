@@ -11,6 +11,7 @@ Web corporativa de FRICAL CALORIFUGADOS, S.L. desarrollada con React 18 + Vite 5
 | UI | React 18 + CSS Modules |
 | Animaciones | GSAP 3 + ScrollTrigger |
 | Enrutamiento | react-router-dom v6 |
+| Base de datos | Supabase (PostgreSQL + Storage + Auth) |
 | Build | Vite 5 |
 | Deploy | Vercel (SPA routing via vercel.json) |
 
@@ -27,6 +28,23 @@ Web corporativa de FRICAL CALORIFUGADOS, S.L. desarrollada con React 18 + Vite 5
 ```bash
 npm install
 ```
+
+### Variables de entorno (obligatorio antes de `npm run dev`)
+
+Copia el archivo de ejemplo y rellena los valores:
+
+```bash
+cp .env.example .env.local
+```
+
+Edita `.env.local` con los valores de **Supabase Dashboard → Settings → API**:
+
+```
+VITE_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJ...
+```
+
+> `.env.local` está en `.gitignore` — nunca se sube al repositorio.
 
 ### Servidor de desarrollo
 
@@ -84,16 +102,32 @@ El fichero `vercel.json` ya incluye el rewrite SPA necesario:
 
 ## Variables de entorno
 
-La versión actual **no requiere variables de entorno** (datos del cliente en `src/data/contacto.js`).
+### Variables requeridas
 
-### Fase 2 — Formulario con backend real
-
-Cuando se integre el endpoint de email (`/api/contacto`), añadir en Vercel:
-
-| Variable | Descripción |
+| Variable | Dónde se obtiene |
 |---|---|
-| `RESEND_API_KEY` | API key de Resend (o proveedor equivalente) |
-| `CONTACT_EMAIL_TO` | Email de destino del formulario |
+| `VITE_SUPABASE_URL` | Supabase Dashboard → Settings → API → Project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase Dashboard → Settings → API → anon public key |
+
+### En local
+
+Archivo `.env.local` en la raíz del proyecto (excluido de git por `*.local` en `.gitignore`):
+
+```
+VITE_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJ...
+```
+
+### En Vercel
+
+1. Ve al proyecto en [vercel.com](https://vercel.com)
+2. **Settings → Environment Variables**
+3. Añade las dos variables con sus valores reales
+4. Marca los entornos: **Production**, **Preview** y **Development**
+5. Haz **Redeploy** para que el build las recoja
+
+> La `anon key` de Supabase es pública por diseño (RLS protege los datos en la BD).
+> Nunca añadas la `service_role key` a variables con prefijo `VITE_`.
 
 ---
 
@@ -172,6 +206,8 @@ frical-corporate/
 ├── src/
 │   ├── components/              ← 14 componentes, cada uno con su CSS Module
 │   ├── data/                    ← contacto.js · servicios.js · proyectos.js · proximos.js · …
+│   ├── lib/
+│   │   └── supabase.js          ← cliente Supabase (singleton)
 │   ├── hooks/
 │   │   └── useSeo.js            ← SEO per-página (title, description, OG, canonical)
 │   ├── pages/

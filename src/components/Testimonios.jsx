@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { testimonios } from '../data/testimonios'
+import { useTestimonios } from '../hooks/useContent'
 import styles from './Testimonios.module.css'
 
 function QuoteIcon() {
@@ -15,8 +15,9 @@ function QuoteIcon() {
 const AVATAR_COLORS = ['#2a3a1a', '#1a2a3a', '#2a1a3a']
 
 export default function Testimonios() {
-  const sectionRef = useRef(null)
-  const cardsRef = useRef(null)
+  const testimonios = useTestimonios()
+  const sectionRef  = useRef(null)
+  const cardsRef    = useRef(null)
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches

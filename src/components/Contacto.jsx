@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Loader2 } from 'lucide-react'
 import { contacto } from '../data/contacto'
 import { IconTelefono, IconEmail, IconLocation, IconClock } from './Icons'
 import styles from './Contacto.module.css'
-
-// TODO (Fase 2): sustituir el mailto: por una llamada POST a /api/contacto
-// que envíe el mensaje directamente desde el servidor (Resend / Nodemailer).
-// El flujo actual abre el gestor de correo del usuario como fallback.
 
 const SERVICIOS_OPCIONES = [
   { value: '', label: 'Selecciona un servicio' },
@@ -18,6 +14,7 @@ const SERVICIOS_OPCIONES = [
   { value: 'otro', label: 'Otro / No sé aún' },
 ]
 
+// status: 'idle' | 'sending' | 'sent' | 'error'
 export default function Contacto({ servicioInicial = '', compact = false }) {
   const sectionRef = useRef(null)
   const leftRef    = useRef(null)
@@ -31,7 +28,8 @@ export default function Contacto({ servicioInicial = '', compact = false }) {
     mensaje:    '',
     privacidad: false,
   })
-  const [sent, setSent] = useState(false)
+  const [status, setStatus]   = useState('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     setForm((prev) => ({ ...prev, servicio: servicioInicial }))
@@ -44,21 +42,14 @@ export default function Contacto({ servicioInicial = '', compact = false }) {
     const ctx = gsap.context(() => {
       if (!compact && leftRef.current) {
         gsap.from(leftRef.current.children, {
-          x: -40,
-          opacity: 0,
-          duration: 0.75,
-          stagger: 0.1,
-          ease: 'power3.out',
+          x: -40, opacity: 0, duration: 0.75, stagger: 0.1, ease: 'power3.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
         })
       }
       if (rightRef.current) {
         gsap.from(rightRef.current, {
-          x: compact ? 0 : 40,
-          y: compact ? 30 : 0,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
+          x: compact ? 0 : 40, y: compact ? 30 : 0, opacity: 0,
+          duration: 0.8, ease: 'power3.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
         })
       }
@@ -72,40 +63,62 @@ export default function Contacto({ servicioInicial = '', compact = false }) {
     setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
   }
 
-  // TODO (Fase 2): reemplazar por POST /api/contacto → envío real desde servidor.
-  // Por ahora abre el gestor de correo del usuario con los datos prefilled.
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
+    const emailTrimmed = form.email.trim()
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)) {
+      setStatus('error')
+      setErrorMsg('El email no tiene un formato válido.')
+      return
+    }
+
+    setStatus('sending')
+    setErrorMsg('')
+
     const servicioLabel =
-      SERVICIOS_OPCIONES.find((o) => o.value === form.servicio)?.label || form.servicio || 'No especificado'
+      SERVICIOS_OPCIONES.find((o) => o.value === form.servicio)?.label || form.servicio || ''
 
-    const subject = encodeURIComponent(`Solicitud de presupuesto — ${servicioLabel}`)
-    const body = encodeURIComponent(
-      `Nombre: ${form.nombre}\n` +
-      `Email: ${form.email}\n` +
-      `Teléfono: ${form.telefono || 'No facilitado'}\n` +
-      `Servicio: ${servicioLabel}\n\n` +
-      `Mensaje:\n${form.mensaje}`
-    )
+    try {
+      const res = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre:   form.nombre.trim(),
+          email:    emailTrimmed,
+          telefono: form.telefono.trim(),
+          servicio: servicioLabel,
+          mensaje:  form.mensaje.trim(),
+        }),
+      })
 
-    window.location.href = `mailto:${contacto.email}?subject=${subject}&body=${body}`
-    setSent(true)
+      let data = {}
+      try { data = await res.json() } catch { /* respuesta no-JSON: la API puede no estar corriendo */ }
+
+      if (!res.ok) throw new Error(data.error || `Error del servidor (${res.status}). Usa vercel dev para ejecutar la API en local.`)
+      setStatus('sent')
+    } catch (err) {
+      setStatus('error')
+      setErrorMsg(err.message || 'No se pudo enviar el mensaje. Inténtalo de nuevo o llámanos directamente.')
+    }
   }
+
+  const sending = status === 'sending'
 
   const formBlock = (
     <div ref={rightRef} className={`${styles.right} ${compact ? styles.rightCompact : ''}`}>
-      {sent ? (
+      {status === 'sent' ? (
         <div className={styles.successMsg} role="status">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
             <circle cx="24" cy="24" r="23" stroke="#7ed957" strokeWidth="2" />
             <path d="M14 24l8 8 12-14" stroke="#7ed957" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <h3>Mensaje preparado</h3>
+          <h3>¡Mensaje recibido!</h3>
           <p>
-            Se ha abierto tu gestor de correo con la consulta lista para enviar a{' '}
-            <strong>{contacto.email}</strong>. Si prefieres contactarnos directamente,
-            llámanos al <a href={`tel:${contacto.telefono.replace(/\s/g, '')}`}>{contacto.telefono}</a>.
+            Hemos recibido tu consulta y te responderemos en menos de{' '}
+            <strong>24 horas</strong> en días laborables. Si necesitas respuesta urgente,
+            llámanos al{' '}
+            <a href={`tel:${contacto.telefono.replace(/\s/g, '')}`}>{contacto.telefono}</a>.
           </p>
         </div>
       ) : (
@@ -113,21 +126,21 @@ export default function Contacto({ servicioInicial = '', compact = false }) {
           <div className={styles.row}>
             <div className={styles.field}>
               <label htmlFor="nombre" className={styles.label}>Nombre <span aria-hidden="true">*</span></label>
-              <input id="nombre" name="nombre" type="text" required autoComplete="name" className={styles.input} placeholder="Tu nombre completo" value={form.nombre} onChange={handleChange} />
+              <input id="nombre" name="nombre" type="text" autoComplete="name" className={styles.input} placeholder="Tu nombre completo" value={form.nombre} onChange={handleChange} disabled={sending} />
             </div>
             <div className={styles.field}>
               <label htmlFor="email" className={styles.label}>Email <span aria-hidden="true">*</span></label>
-              <input id="email" name="email" type="email" required autoComplete="email" className={styles.input} placeholder="tu@empresa.com" value={form.email} onChange={handleChange} />
+              <input id="email" name="email" type="text" inputMode="email" autoComplete="email" className={styles.input} placeholder="tu@empresa.com" value={form.email} onChange={handleChange} disabled={sending} />
             </div>
           </div>
           <div className={styles.row}>
             <div className={styles.field}>
               <label htmlFor="telefono" className={styles.label}>Teléfono</label>
-              <input id="telefono" name="telefono" type="tel" autoComplete="tel" className={styles.input} placeholder="+34 600 000 000" value={form.telefono} onChange={handleChange} />
+              <input id="telefono" name="telefono" type="text" inputMode="tel" autoComplete="tel" className={styles.input} placeholder="+34 600 000 000" value={form.telefono} onChange={handleChange} disabled={sending} />
             </div>
             <div className={styles.field}>
               <label htmlFor="servicio" className={styles.label}>Servicio de interés</label>
-              <select id="servicio" name="servicio" className={styles.select} value={form.servicio} onChange={handleChange}>
+              <select id="servicio" name="servicio" className={styles.select} value={form.servicio} onChange={handleChange} disabled={sending}>
                 {SERVICIOS_OPCIONES.map((o) => (
                   <option key={o.value} value={o.value}>{o.label}</option>
                 ))}
@@ -136,19 +149,32 @@ export default function Contacto({ servicioInicial = '', compact = false }) {
           </div>
           <div className={styles.field}>
             <label htmlFor="mensaje" className={styles.label}>Mensaje <span aria-hidden="true">*</span></label>
-            <textarea id="mensaje" name="mensaje" required rows={4} className={styles.textarea} placeholder="Descríbenos tu instalación y qué necesitas..." value={form.mensaje} onChange={handleChange} />
+            <textarea id="mensaje" name="mensaje" required rows={4} className={styles.textarea} placeholder="Descríbenos tu instalación y qué necesitas..." value={form.mensaje} onChange={handleChange} disabled={sending} />
           </div>
           <div className={styles.checkRow}>
-            <input id="privacidad" name="privacidad" type="checkbox" required className={styles.checkbox} checked={form.privacidad} onChange={handleChange} />
+            <input id="privacidad" name="privacidad" type="checkbox" required className={styles.checkbox} checked={form.privacidad} onChange={handleChange} disabled={sending} />
             <label htmlFor="privacidad" className={styles.checkLabel}>
               He leído y acepto la{' '}
               <a href="/politica-de-privacidad" className={styles.legalLink} target="_blank" rel="noopener">política de privacidad</a>
               <span aria-hidden="true"> *</span>
             </label>
           </div>
-          <button type="submit" className={`btn-primary ${styles.submitBtn}`}>
-            Enviar consulta
-            <ArrowRight size={16} strokeWidth={1.6} aria-hidden="true" />
+
+          {status === 'error' && (
+            <p role="alert" style={{ color: '#e53935', fontSize: '13px', margin: '0 0 4px' }}>
+              {errorMsg}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            className={`btn-primary ${styles.submitBtn}`}
+            disabled={sending || !form.nombre || !form.email || !form.mensaje || !form.privacidad}
+          >
+            {sending
+              ? <><Loader2 size={16} strokeWidth={1.8} style={{ animation: 'spin 1s linear infinite' }} aria-hidden="true" /> Enviando...</>
+              : <><ArrowRight size={16} strokeWidth={1.6} aria-hidden="true" /> Enviar consulta</>
+            }
           </button>
         </form>
       )}
