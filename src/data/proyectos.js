@@ -1,7 +1,7 @@
 export const proyectos = [
   {
     id: 1,
-    imagen: '/proyectos/proyecto-01-conductos-alimentaria.jpg',
+    imagen: '/proyectos/industria-alimentaria.jpeg',
     titulo: 'Red de conductos industria alimentaria',
     descripcion:
       'Fabricación e instalación de conductos galvanizados para ventilación y extracción de vapores en planta de producción alimentaria de 3.200 m². Cumplimiento normativa HACCP y clase de estanqueidad B.',
@@ -12,7 +12,7 @@ export const proyectos = [
   },
   {
     id: 2,
-    imagen: '/proyectos/proyecto-02-calorifugado-reactores.jpg',
+    imagen: '/proyectos/reactores.jpg',
     titulo: 'Calorifugado de reactores — Barcelona',
     descripcion:
       'Calorifugado de 8 reactores de proceso con lana de roca de alta densidad (150 kg/m³) y acabado en aluminio estucado. Temperatura de trabajo entre 200 °C y 350 °C. Planta química en el área metropolitana.',
@@ -23,7 +23,7 @@ export const proyectos = [
   },
   {
     id: 3,
-    imagen: '/proyectos/proyecto-03-trazado-farmaceutica.jpg',
+    imagen: '/proyectos/industria-farmaceutica.jpeg',
     titulo: 'Trazado eléctrico — Planta farmacéutica',
     descripcion:
       'Instalación de trazado eléctrico en tuberías de proceso para mantenimiento de temperatura crítica en planta farmacéutica en el área de Barcelona. Sistema de control SCADA integrado y documentación ATEX.',
@@ -34,7 +34,7 @@ export const proyectos = [
   },
   {
     id: 4,
-    imagen: '/proyectos/proyecto-04-conductos-logistica.jpg',
+    imagen: '/proyectos/proyecto-conductos.jpg',
     titulo: 'Conductos impulsión/retorno en cubierta',
     descripcion:
       'Montaje de red de conductos de impulsión y retorno en cubierta de nave logística de 8.000 m². Chapa galvanizada con aislamiento exterior de lana de vidrio y acabado protector de aluminio.',
@@ -45,7 +45,7 @@ export const proyectos = [
   },
   {
     id: 5,
-    imagen: '/proyectos/proyecto-05-aislamiento-naval.jpg',
+    imagen: '/proyectos/sector-naval.jpeg',
     titulo: 'Aislamiento depósitos — Sector naval',
     descripcion:
       'Aislamiento térmico de depósitos de almacenamiento en astillero de Tarragona. Proyección de espuma de poliuretano de alta densidad con acabado en chapa inoxidable AISI 304.',
@@ -56,7 +56,7 @@ export const proyectos = [
   },
   {
     id: 6,
-    imagen: '/proyectos/proyecto-06-climatizacion-vrf.jpg',
+    imagen: '/proyectos/sede-corporativa.jpg',
     titulo: 'Climatización VRF — Sede corporativa',
     descripcion:
       'Diseño e instalación de sistema de climatización VRF para sede corporativa de 2.400 m² en Barcelona. Unidades exteriores en cubierta con distribución de conductos integrada en falso techo técnico.',
