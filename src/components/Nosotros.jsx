@@ -1,7 +1,12 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './Nosotros.module.css'
+
+// 📷 Para cambiar la foto: sustituye el archivo en public/images/nosotros/
+// (mismo nombre) o cambia solo esta ruta. Si el archivo no existe,
+// se muestra automáticamente el placeholder de rejilla. No hay que tocar nada más.
+const IMAGEN_INSTALACION = '/images/nosotros/instalacion-industrial.jpg'
 
 const PUNTOS = [
   'Equipo propio de técnicos especializados — sin subcontratas',
@@ -15,6 +20,7 @@ export default function Nosotros() {
   const sectionRef = useRef(null)
   const textRef = useRef(null)
   const imageRef = useRef(null)
+  const [imagenOk, setImagenOk] = useState(false)
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -84,7 +90,11 @@ export default function Nosotros() {
           </div>
 
           <div ref={imageRef} className={styles.imageWrap}>
-            <div className={styles.imagePlaceholder} aria-label="Instalación FRICAL en planta industrial">
+            <div
+              className={`${styles.imagePlaceholder} ${imagenOk ? styles.hasImage : ''}`}
+              aria-label="Instalación FRICAL en planta industrial"
+            >
+              {/* Placeholder (rejilla) — visible mientras no exista la foto */}
               <div className={styles.imgPattern} aria-hidden="true" />
               <div className={styles.imgOverlay} aria-hidden="true" />
               <div className={styles.imgLines} aria-hidden="true">
@@ -92,6 +102,20 @@ export default function Nosotros() {
                   <div key={i} className={styles.imgLine} style={{ top: `${16 + i * 16}%` }} />
                 ))}
               </div>
+
+              {/* Foto real — cubre el recuadro cuando el archivo existe */}
+              <img
+                className={styles.imgPhoto}
+                src={IMAGEN_INSTALACION}
+                alt="Instalación FRICAL en planta industrial"
+                loading="lazy"
+                onLoad={() => setImagenOk(true)}
+                onError={(e) => { e.currentTarget.style.display = 'none' }}
+              />
+
+              {/* Overlay oscuro degradado para legibilidad de los textos sobre la foto */}
+              <div className={styles.imgScrim} aria-hidden="true" />
+
               <div className={styles.imgLabel} aria-hidden="true">
                 <span>Instalación</span>
                 <span>industrial</span>
