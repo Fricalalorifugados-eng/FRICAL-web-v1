@@ -130,3 +130,27 @@
 .content tr:nth-child(even) td {
   background: rgba(26, 29, 29, 0.4);
 }
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 96px 0 44px;
+    margin-bottom: 44px;
+  }
+
+  .main {
+    padding-bottom: 56px;
+  }
+
+  .content h2 {
+    margin-top: 36px;
+    font-size: 20px;
+  }
+
+  /* Tablas: scroll horizontal interno en lugar de romper el ancho de página */
+  .content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

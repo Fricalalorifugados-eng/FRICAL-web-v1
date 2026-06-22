@@ -535,15 +535,28 @@
 }
 
 @media (max-width: 640px) {
-  .hero { padding: 100px 0 56px; }
+  .hero { padding: 92px 0 52px; }
+  .benSection,
+  .vacSection,
+  .formSection { padding: 60px 0; }
+  .sectionHeader { margin-bottom: 40px; }
   .benGrid {
     grid-template-columns: 1fr;
     max-width: 420px;
     margin: 0 auto;
   }
+  .vacImgZone { height: 170px; }
   .vacCardBody {
     grid-template-columns: 1fr;
+    padding: 26px 24px;
   }
   .formCard { padding: 32px 24px; }
   .formRow { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 400px) {
+  .hero { padding: 84px 0 44px; }
+  .heroBadge { padding: 16px 18px; gap: 12px; }
+  .formCard { padding: 26px 20px; }
+  .vacCardBody { padding: 22px 20px; }
 }

@@ -264,3 +264,14 @@ a.infoValue2:hover {
     padding: 28px 24px;
   }
 }
+
+@media (max-width: 480px) {
+  .right {
+    padding: 24px 20px;
+  }
+
+  .submitBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

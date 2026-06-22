@@ -126,7 +126,7 @@
 
   .steps {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 28px;
   }
 
   .stepNum {

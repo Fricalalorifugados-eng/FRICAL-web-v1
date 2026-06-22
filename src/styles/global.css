@@ -166,3 +166,14 @@ ul {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Responsive globals — reduce section spacing & gutters on tablet/mobile ── */
+@media (max-width: 768px) {
+  :root { --section-pad: 76px; }
+}
+
+@media (max-width: 480px) {
+  :root { --section-pad: 54px; }
+  .container { padding: 0 18px; }
+  .section-title { font-size: clamp(27px, 8vw, 36px); }
+}

@@ -261,6 +261,20 @@
 }
 
 @media (max-width: 600px) {
+  .intro {
+    padding: 60px 0 44px;
+  }
+
+  .blocks,
+  .why,
+  .formSection {
+    padding: 56px 0;
+  }
+
+  .blocksHeader {
+    margin-bottom: 36px;
+  }
+
   .blocksGrid {
     grid-template-columns: 1fr;
   }

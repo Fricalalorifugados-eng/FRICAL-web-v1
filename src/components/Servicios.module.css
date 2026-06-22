@@ -101,7 +101,7 @@
 
 .cardTitle {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(18px, 4.6vw, 22px);
   font-weight: 800;
   color: var(--frical-white);
   margin-bottom: 16px;
@@ -136,6 +136,15 @@
 }
 
 @media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .header {
+    margin-bottom: 44px;
+  }
+}
+
+@media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
     max-width: 480px;

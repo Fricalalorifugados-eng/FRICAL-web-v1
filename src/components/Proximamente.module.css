@@ -225,7 +225,7 @@
 
 /* ── Responsive ──────────────────────────────────────────── */
 
-@media (max-width: 860px) {
+@media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
     max-width: 560px;

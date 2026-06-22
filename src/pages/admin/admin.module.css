@@ -657,7 +657,84 @@
   .splitWrap  { grid-template-columns: 1fr; }
   .detailPanel { position: static; }
 }
-@media (max-width: 700px) {
-  .sidebar  { display: none; }
-  .formRow  { grid-template-columns: 1fr; }
+
+@media (max-width: 768px) {
+  /* La sidebar pasa a barra superior horizontal con scroll (mantiene la
+     navegación accesible en móvil en lugar de ocultarla por completo) */
+  .wrap { flex-direction: column; }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    flex-direction: row;
+    align-items: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: none;
+    border-bottom: 1px solid var(--frical-border);
+  }
+
+  .sidebarLogo {
+    border-bottom: none;
+    border-right: 1px solid var(--frical-border);
+    padding: 10px 14px;
+    flex-shrink: 0;
+    justify-content: center;
+  }
+  .sidebarLogo span { display: none; }
+
+  .sidebarSection { display: none; }
+
+  .sidebarNav {
+    display: flex;
+    align-items: center;
+    flex: 1 0 auto;
+    padding: 6px 8px;
+    gap: 4px;
+  }
+
+  .navLink {
+    width: auto;
+    white-space: nowrap;
+    padding: 9px 12px;
+  }
+  .badge { margin-left: 5px; }
+
+  .sidebarBottom {
+    border-top: none;
+    border-left: 1px solid var(--frical-border);
+    padding: 8px 12px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+  .logoutBtn { white-space: nowrap; width: auto; }
+
+  /* Tablas: scroll horizontal interno con ancho mínimo legible */
+  .tableWrap { overflow-x: auto; }
+  .table { min-width: 560px; }
+
+  /* Botones a tamaño táctil */
+  .btn   { padding: 10px 16px; }
+  .btnSm { padding: 8px 12px; }
+
+  .formRow { grid-template-columns: 1fr; }
+
+  .pageHeader { padding: 16px 18px 14px; }
+  .content    { padding: 18px 18px; }
+}
+
+@media (max-width: 480px) {
+  .pageHeader { padding: 14px 16px 12px; }
+  .content    { padding: 16px 16px; }
+
+  .itemCard { flex-wrap: wrap; }
+  .itemActions { gap: 6px; }
+
+  .statsGrid { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .loginBox { padding: 32px 24px; }
 }
