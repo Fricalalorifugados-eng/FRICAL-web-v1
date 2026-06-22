@@ -8,6 +8,20 @@
   background: var(--frical-black);
 }
 
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.58) 45%, rgba(0, 0, 0, 0.4) 100%),
+    linear-gradient(rgba(7, 10, 8, 0.25) 0%, rgba(7, 10, 8, 0.5) 55%, rgba(7, 10, 8, 0.8) 100%),
+    url('/hero-fondo.jpg');
+  background-size: cover, cover, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
 .grid {
   position: absolute;
   inset: 0;

@@ -86,6 +86,7 @@ export default function Hero() {
 
   return (
     <section id="inicio" ref={sectionRef} className={styles.hero} aria-label="Presentación de FRICAL">
+      <div className={styles.bg} aria-hidden="true" />
       <div className={styles.grid} aria-hidden="true" />
       <div className={styles.glowLeft} aria-hidden="true" />
       <div className={styles.glowRight} aria-hidden="true" />
