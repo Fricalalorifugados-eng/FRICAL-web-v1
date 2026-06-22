@@ -70,8 +70,8 @@ export default function Nosotros() {
               {PUNTOS.map((p, i) => (
                 <li key={i} className={styles.listItem}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <circle cx="8" cy="8" r="7" stroke="#7ed957" strokeWidth="1.2" />
-                    <path d="M5 8l2.5 2.5L11 5.5" stroke="#7ed957" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="8" cy="8" r="7" stroke="#6FCB6F" strokeWidth="1.2" />
+                    <path d="M5 8l2.5 2.5L11 5.5" stroke="#6FCB6F" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   {p}
                 </li>

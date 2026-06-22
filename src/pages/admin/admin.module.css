@@ -83,13 +83,13 @@
   text-align: left;
 }
 .navLink:hover {
-  background: rgba(126, 217, 87, 0.05);
+  background: rgba(111, 203, 111, 0.05);
   color: var(--frical-white);
 }
 .navLink.active {
-  background: rgba(126, 217, 87, 0.09);
+  background: rgba(111, 203, 111, 0.09);
   color: var(--frical-green);
-  border-color: rgba(126, 217, 87, 0.2);
+  border-color: rgba(111, 203, 111, 0.2);
   font-weight: 600;
 }
 
@@ -182,7 +182,7 @@
   display: block;
 }
 .statCard:hover {
-  border-color: rgba(126, 217, 87, 0.35);
+  border-color: rgba(111, 203, 111, 0.35);
   transform: translateY(-2px);
 }
 .statNum {
@@ -228,13 +228,13 @@
 }
 .table td {
   padding: 13px 16px;
-  border-bottom: 1px solid rgba(126, 217, 87, 0.06);
+  border-bottom: 1px solid rgba(111, 203, 111, 0.06);
   vertical-align: top;
   line-height: 1.4;
 }
 .table tr:last-child td { border-bottom: none; }
-.table tr:hover td { background: rgba(126, 217, 87, 0.025); }
-.table tr.rowSelected td { background: rgba(126, 217, 87, 0.07); }
+.table tr:hover td { background: rgba(111, 203, 111, 0.025); }
+.table tr.rowSelected td { background: rgba(111, 203, 111, 0.07); }
 
 .cellMain { color: var(--frical-white); font-weight: 500; }
 .cellSub  { color: rgba(185, 194, 187, 0.65); font-size: 12px; margin-top: 2px; }
@@ -250,9 +250,9 @@
   font-weight: 700;
   letter-spacing: .04em;
 }
-.pillNew  { background: rgba(126, 217, 87, 0.12); color: var(--frical-green);  border: 1px solid rgba(126, 217, 87, 0.28); }
+.pillNew  { background: rgba(111, 203, 111, 0.12); color: var(--frical-green);  border: 1px solid rgba(111, 203, 111, 0.28); }
 .pillRead { background: rgba(185, 194, 187, 0.06); color: rgba(185, 194, 187, 0.5); border: 1px solid rgba(185, 194, 187, 0.1); }
-.pillGold { background: rgba(126, 217, 87, 0.08); color: var(--frical-green);  border: 1px solid rgba(126, 217, 87, 0.2); }
+.pillGold { background: rgba(111, 203, 111, 0.08); color: var(--frical-green);  border: 1px solid rgba(111, 203, 111, 0.2); }
 
 /* ── Detail panel ────────────────────────────────────────── */
 .splitWrap {
@@ -321,12 +321,12 @@
 .btnSecondary {
   background: var(--frical-ink);
   color: var(--frical-mist);
-  border: 1px solid rgba(126, 217, 87, 0.15);
+  border: 1px solid rgba(111, 203, 111, 0.15);
 }
 .btnSecondary:hover:not(:disabled) {
   background: var(--frical-coal-light);
   color: var(--frical-white);
-  border-color: rgba(126, 217, 87, 0.3);
+  border-color: rgba(111, 203, 111, 0.3);
 }
 
 .btnDanger {
@@ -352,7 +352,7 @@
 }
 .input, .textarea, .select {
   background: var(--frical-black);
-  border: 1px solid rgba(126, 217, 87, 0.12);
+  border: 1px solid rgba(111, 203, 111, 0.12);
   border-radius: 6px;
   color: var(--frical-white);
   padding: 8px 11px;
@@ -363,8 +363,8 @@
 }
 .input::placeholder { color: rgba(185, 194, 187, 0.28); }
 .input:focus, .textarea:focus, .select:focus {
-  border-color: rgba(126, 217, 87, 0.5);
-  box-shadow: 0 0 0 3px rgba(126, 217, 87, 0.07);
+  border-color: rgba(111, 203, 111, 0.5);
+  box-shadow: 0 0 0 3px rgba(111, 203, 111, 0.07);
 }
 .textarea { resize: vertical; min-height: 80px; }
 .select option { background: var(--frical-ink); }
@@ -407,7 +407,7 @@
   gap: 14px;
   transition: border-color .2s;
 }
-.itemCard:hover { border-color: rgba(126, 217, 87, 0.28); }
+.itemCard:hover { border-color: rgba(111, 203, 111, 0.28); }
 .itemCardInactive { opacity: .42; }
 .itemThumb {
   width: 60px;
@@ -445,7 +445,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 50% 38%, rgba(126, 217, 87, 0.045), transparent);
+  background: radial-gradient(ellipse 60% 50% at 50% 38%, rgba(111, 203, 111, 0.045), transparent);
   pointer-events: none;
 }
 .loginBox {
@@ -505,7 +505,7 @@
   width: 100%;
   box-sizing: border-box;
   background: var(--frical-black);
-  border: 1px solid rgba(126, 217, 87, 0.14);
+  border: 1px solid rgba(111, 203, 111, 0.14);
   border-radius: 7px;
   color: var(--frical-white);
   padding: 11px 13px;
@@ -516,8 +516,8 @@
 }
 .loginInput::placeholder { color: rgba(185, 194, 187, 0.22); }
 .loginInput:focus {
-  border-color: rgba(126, 217, 87, 0.52);
-  box-shadow: 0 0 0 3px rgba(126, 217, 87, 0.08);
+  border-color: rgba(111, 203, 111, 0.52);
+  box-shadow: 0 0 0 3px rgba(111, 203, 111, 0.08);
 }
 .loginBtn {
   width: 100%;
@@ -620,7 +620,7 @@
   width: 100%;
   max-width: 320px;
   height: 100px;
-  border: 1px dashed rgba(126, 217, 87, 0.18);
+  border: 1px dashed rgba(111, 203, 111, 0.18);
   border-radius: 7px;
   display: flex;
   align-items: center;

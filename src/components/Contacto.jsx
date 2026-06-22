@@ -110,8 +110,8 @@ export default function Contacto({ servicioInicial = '', compact = false }) {
       {status === 'sent' ? (
         <div className={styles.successMsg} role="status">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <circle cx="24" cy="24" r="23" stroke="#7ed957" strokeWidth="2" />
-            <path d="M14 24l8 8 12-14" stroke="#7ed957" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="24" cy="24" r="23" stroke="#6FCB6F" strokeWidth="2" />
+            <path d="M14 24l8 8 12-14" stroke="#6FCB6F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <h3>¡Mensaje recibido!</h3>
           <p>

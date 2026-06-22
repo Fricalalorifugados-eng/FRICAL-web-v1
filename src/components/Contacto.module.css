@@ -48,8 +48,8 @@
   width: 44px;
   height: 44px;
   min-width: 44px;  /* prevent flex from squishing it */
-  background: rgba(126, 217, 87, 0.07);
-  border: 1px solid rgba(126, 217, 87, 0.12);
+  background: rgba(111, 203, 111, 0.07);
+  border: 1px solid rgba(111, 203, 111, 0.12);
   border-radius: 11px;
   color: var(--frical-green);
   /* Nudge down 2px so the box top-aligns with the label text cap-height */
@@ -100,7 +100,7 @@ a.infoValue2:hover {
 
 .right {
   background: var(--frical-ink);
-  border: 1px solid rgba(126, 217, 87, 0.08);
+  border: 1px solid rgba(111, 203, 111, 0.08);
   border-radius: 16px;
   padding: 44px;
 }
@@ -139,7 +139,7 @@ a.infoValue2:hover {
 .textarea {
   width: 100%;
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.1);
+  border: 1px solid rgba(111, 203, 111, 0.1);
   border-radius: 8px;
   padding: 13px 16px;
   font-family: var(--font-body);
@@ -158,8 +158,8 @@ a.infoValue2:hover {
 .input:focus,
 .select:focus,
 .textarea:focus {
-  border-color: rgba(126, 217, 87, 0.4);
-  box-shadow: 0 0 0 3px rgba(126, 217, 87, 0.08);
+  border-color: rgba(111, 203, 111, 0.4);
+  box-shadow: 0 0 0 3px rgba(111, 203, 111, 0.08);
 }
 
 .select {

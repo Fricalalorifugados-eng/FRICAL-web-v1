@@ -31,8 +31,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(126, 217, 87, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(126, 217, 87, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(111, 203, 111, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 203, 111, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
@@ -105,7 +105,7 @@
   transform: translateX(-50%);
   width: 1px;
   height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(126, 217, 87, 0.5));
+  background: linear-gradient(to bottom, transparent, rgba(111, 203, 111, 0.5));
 }
 
 @media (max-width: 768px) {

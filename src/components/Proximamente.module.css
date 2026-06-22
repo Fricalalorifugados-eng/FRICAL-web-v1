@@ -103,15 +103,15 @@
 @keyframes glowPulse {
   0%, 100% {
     text-shadow:
-      0 0 10px rgba(126, 217, 87, 0.3),
-      0 0 24px rgba(126, 217, 87, 0.1);
+      0 0 10px rgba(111, 203, 111, 0.3),
+      0 0 24px rgba(111, 203, 111, 0.1);
     opacity: 0.85;
   }
   50% {
     text-shadow:
-      0 0 18px rgba(126, 217, 87, 0.65),
-      0 0 40px rgba(126, 217, 87, 0.25),
-      0 0 70px rgba(126, 217, 87, 0.08);
+      0 0 18px rgba(111, 203, 111, 0.65),
+      0 0 40px rgba(111, 203, 111, 0.25),
+      0 0 70px rgba(111, 203, 111, 0.08);
     opacity: 1;
   }
 }
@@ -126,9 +126,9 @@
   background: linear-gradient(
     105deg,
     transparent 20%,
-    rgba(126, 217, 87, 0.07) 45%,
-    rgba(126, 217, 87, 0.18) 50%,
-    rgba(126, 217, 87, 0.07) 55%,
+    rgba(111, 203, 111, 0.07) 45%,
+    rgba(111, 203, 111, 0.18) 50%,
+    rgba(111, 203, 111, 0.07) 55%,
     transparent 80%
   );
   transform: translateX(-100%) skewX(-12deg);
@@ -216,7 +216,7 @@
   .proximamenteText {
     animation: none;
     opacity: 1;
-    text-shadow: 0 0 14px rgba(126, 217, 87, 0.4);
+    text-shadow: 0 0 14px rgba(111, 203, 111, 0.4);
   }
   .lightSweep {
     display: none;

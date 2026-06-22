@@ -45,7 +45,7 @@
   display: flex;
   gap: 40px;
   padding-top: 32px;
-  border-top: 1px solid rgba(126, 217, 87, 0.1);
+  border-top: 1px solid rgba(111, 203, 111, 0.1);
   margin-top: 32px;
 }
 
@@ -80,7 +80,7 @@
   flex-direction: column;
   gap: 8px;
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.1);
+  border: 1px solid rgba(111, 203, 111, 0.1);
   border-radius: 12px;
   padding: 24px 28px;
 }
@@ -119,7 +119,7 @@
 
 .block {
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.07);
+  border: 1px solid rgba(111, 203, 111, 0.07);
   border-radius: 12px;
   padding: 32px 28px;
   transition: border-color 0.3s ease, transform 0.3s ease;
@@ -128,7 +128,7 @@
 }
 
 .block:hover {
-  border-color: rgba(126, 217, 87, 0.2);
+  border-color: rgba(111, 203, 111, 0.2);
   transform: translateY(-4px);
 }
 
@@ -198,7 +198,7 @@
   gap: 14px;
   padding: 18px 20px;
   background: var(--frical-ink);
-  border: 1px solid rgba(126, 217, 87, 0.06);
+  border: 1px solid rgba(111, 203, 111, 0.06);
   border-radius: 10px;
 }
 
@@ -207,7 +207,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(126, 217, 87, 0.1);
+  background: rgba(111, 203, 111, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -7,7 +7,7 @@
 /* ── Hero ──────────────────────────────────────────────────────────────────── */
 .hero {
   background: var(--frical-ink);
-  border-bottom: 1px solid rgba(126, 217, 87, 0.08);
+  border-bottom: 1px solid rgba(111, 203, 111, 0.08);
   padding: 120px 0 80px;
   position: relative;
   overflow: hidden;
@@ -17,7 +17,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 70% 50%, rgba(126, 217, 87, 0.05), transparent);
+  background: radial-gradient(ellipse 60% 50% at 70% 50%, rgba(111, 203, 111, 0.05), transparent);
   pointer-events: none;
 }
 
@@ -88,7 +88,7 @@
   align-items: center;
   gap: 16px;
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.1);
+  border: 1px solid rgba(111, 203, 111, 0.1);
   border-radius: 12px;
   padding: 20px 24px;
 }
@@ -98,7 +98,7 @@
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: rgba(126, 217, 87, 0.08);
+  background: rgba(111, 203, 111, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,7 +138,7 @@
 
 .benCard {
   background: var(--frical-ink);
-  border: 1px solid rgba(126, 217, 87, 0.07);
+  border: 1px solid rgba(111, 203, 111, 0.07);
   border-radius: 14px;
   padding: 32px 28px;
   display: flex;
@@ -148,7 +148,7 @@
 }
 
 .benCard:hover {
-  border-color: rgba(126, 217, 87, 0.22);
+  border-color: rgba(111, 203, 111, 0.22);
   transform: translateY(-4px);
 }
 
@@ -156,7 +156,7 @@
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: rgba(126, 217, 87, 0.07);
+  background: rgba(111, 203, 111, 0.07);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,7 +193,7 @@
 
 .vacCard {
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.08);
+  border: 1px solid rgba(111, 203, 111, 0.08);
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -202,7 +202,7 @@
 }
 
 .vacCard:hover {
-  border-color: rgba(126, 217, 87, 0.2);
+  border-color: rgba(111, 203, 111, 0.2);
 }
 
 .vacImgZone {
@@ -245,9 +245,9 @@
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 100px;
-  border: 1px solid rgba(126, 217, 87, 0.25);
+  border: 1px solid rgba(111, 203, 111, 0.25);
   color: var(--frical-green);
-  background: rgba(126, 217, 87, 0.06);
+  background: rgba(111, 203, 111, 0.06);
 }
 
 .vacDesc {
@@ -281,7 +281,7 @@
 /* Empty state */
 .vacEmpty {
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.06);
+  border: 1px solid rgba(111, 203, 111, 0.06);
   border-radius: 16px;
   padding: 64px 40px;
   text-align: center;
@@ -292,7 +292,7 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: rgba(126, 217, 87, 0.07);
+  background: rgba(111, 203, 111, 0.07);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,7 +324,7 @@
 
 .formCard {
   background: var(--frical-ink);
-  border: 1px solid rgba(126, 217, 87, 0.08);
+  border: 1px solid rgba(111, 203, 111, 0.08);
   border-radius: 16px;
   padding: 52px;
   max-width: 780px;
@@ -379,7 +379,7 @@
 .textarea {
   width: 100%;
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.1);
+  border: 1px solid rgba(111, 203, 111, 0.1);
   border-radius: 8px;
   padding: 13px 16px;
   font-family: var(--font-body);
@@ -396,8 +396,8 @@
 .input:focus,
 .select:focus,
 .textarea:focus {
-  border-color: rgba(126, 217, 87, 0.4);
-  box-shadow: 0 0 0 3px rgba(126, 217, 87, 0.08);
+  border-color: rgba(111, 203, 111, 0.4);
+  box-shadow: 0 0 0 3px rgba(111, 203, 111, 0.08);
 }
 
 .select {
@@ -432,7 +432,7 @@
   gap: 12px;
   padding: 14px 18px;
   background: var(--frical-coal);
-  border: 1px dashed rgba(126, 217, 87, 0.2);
+  border: 1px dashed rgba(111, 203, 111, 0.2);
   border-radius: 8px;
   cursor: pointer;
   color: var(--frical-mist);
@@ -441,8 +441,8 @@
 }
 
 .fileLabel:hover {
-  border-color: rgba(126, 217, 87, 0.4);
-  background: rgba(126, 217, 87, 0.03);
+  border-color: rgba(111, 203, 111, 0.4);
+  background: rgba(111, 203, 111, 0.03);
 }
 
 .fileLabelIcon { color: var(--frical-green); flex-shrink: 0; }
@@ -501,8 +501,8 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: rgba(126, 217, 87, 0.1);
-  border: 1px solid rgba(126, 217, 87, 0.25);
+  background: rgba(111, 203, 111, 0.1);
+  border: 1px solid rgba(111, 203, 111, 0.25);
   color: var(--frical-green);
   margin: 0 auto 24px;
 }

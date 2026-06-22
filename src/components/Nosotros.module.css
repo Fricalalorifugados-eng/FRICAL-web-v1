@@ -58,15 +58,15 @@
   background: var(--frical-coal);
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(126, 217, 87, 0.08);
+  border: 1px solid rgba(111, 203, 111, 0.08);
 }
 
 .imgPattern {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(126, 217, 87, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(126, 217, 87, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(111, 203, 111, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 203, 111, 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -92,7 +92,7 @@
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(126, 217, 87, 0.12), transparent);
+  background: linear-gradient(to right, transparent, rgba(111, 203, 111, 0.12), transparent);
 }
 
 .imgLabel {
@@ -121,7 +121,7 @@
   height: 116px;
   background: var(--frical-green);
   border-radius: 50%;
-  box-shadow: 0 0 0 6px rgba(126, 217, 87, 0.12), 0 16px 40px rgba(126, 217, 87, 0.25);
+  box-shadow: 0 0 0 6px rgba(111, 203, 111, 0.12), 0 16px 40px rgba(111, 203, 111, 0.25);
   text-align: center;
   gap: 2px;
 }
@@ -161,7 +161,7 @@
   align-items: center;
   gap: 8px;
   background: var(--frical-coal-light);
-  border: 1px solid rgba(126, 217, 87, 0.15);
+  border: 1px solid rgba(111, 203, 111, 0.15);
   border-radius: 100px;
   padding: 10px 18px;
   font-size: 13px;

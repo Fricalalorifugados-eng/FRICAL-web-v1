@@ -1,7 +1,7 @@
 .wrapper {
   background: var(--frical-ink);
-  border-top: 1px solid rgba(126, 217, 87, 0.08);
-  border-bottom: 1px solid rgba(126, 217, 87, 0.08);
+  border-top: 1px solid rgba(111, 203, 111, 0.08);
+  border-bottom: 1px solid rgba(111, 203, 111, 0.08);
   overflow: hidden;
   padding: 18px 0;
   position: relative;

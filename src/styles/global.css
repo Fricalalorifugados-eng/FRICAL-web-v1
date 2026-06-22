@@ -5,12 +5,12 @@
   --frical-ink: #121414;
   --frical-coal: #1a1d1d;
   --frical-coal-light: #222626;
-  --frical-green: #7ed957;
+  --frical-green: #6FCB6F;
   --frical-green-bright: #9dff6b;
   --frical-green-deep: #4ea832;
   --frical-white: #f4f6f4;
   --frical-mist: #b9c2bb;
-  --frical-border: rgba(126, 217, 87, 0.12);
+  --frical-border: rgba(111, 203, 111, 0.12);
 
   --font-display: 'Archivo', 'Arial Black', sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -96,7 +96,7 @@ ul {
 .btn-primary:hover {
   background: var(--frical-green-bright);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(126, 217, 87, 0.35);
+  box-shadow: 0 8px 28px rgba(111, 203, 111, 0.35);
 }
 
 .btn-primary:active {

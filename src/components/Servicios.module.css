@@ -22,7 +22,7 @@
 .card {
   position: relative;
   background: var(--frical-ink);
-  border: 1px solid rgba(126, 217, 87, 0.08);
+  border: 1px solid rgba(111, 203, 111, 0.08);
   border-radius: 12px;
   padding: 40px 36px;
   overflow: hidden;
@@ -34,19 +34,19 @@
 }
 
 .card:hover {
-  border-color: rgba(126, 217, 87, 0.28);
+  border-color: rgba(111, 203, 111, 0.28);
   transform: translateY(-6px);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(126, 217, 87, 0.1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(111, 203, 111, 0.1);
 }
 
 .cardDestacado {
-  border-color: rgba(126, 217, 87, 0.22);
-  background: linear-gradient(145deg, rgba(126, 217, 87, 0.04) 0%, var(--frical-ink) 60%);
+  border-color: rgba(111, 203, 111, 0.22);
+  background: linear-gradient(145deg, rgba(111, 203, 111, 0.04) 0%, var(--frical-ink) 60%);
 }
 
 .cardDestacado:hover {
-  border-color: rgba(126, 217, 87, 0.45);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 40px rgba(126, 217, 87, 0.08);
+  border-color: rgba(111, 203, 111, 0.45);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 40px rgba(111, 203, 111, 0.08);
 }
 
 .especialidadBadge {
@@ -74,7 +74,7 @@
   right: -60px;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(126, 217, 87, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(111, 203, 111, 0.08) 0%, transparent 70%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -86,8 +86,8 @@
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: rgba(126, 217, 87, 0.07);
-  border: 1px solid rgba(126, 217, 87, 0.12);
+  background: rgba(111, 203, 111, 0.07);
+  border: 1px solid rgba(111, 203, 111, 0.12);
   border-radius: 14px;
   color: var(--frical-green);
   margin-bottom: 28px;
@@ -95,8 +95,8 @@
 }
 
 .card:hover .iconWrap {
-  background: rgba(126, 217, 87, 0.12);
-  border-color: rgba(126, 217, 87, 0.25);
+  background: rgba(111, 203, 111, 0.12);
+  border-color: rgba(111, 203, 111, 0.25);
 }
 
 .cardTitle {

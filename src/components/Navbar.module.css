@@ -14,7 +14,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 10px 0;
-  border-bottom-color: rgba(126, 217, 87, 0.08);
+  border-bottom-color: rgba(111, 203, 111, 0.08);
 }
 
 .inner {
@@ -73,7 +73,7 @@
 .navLink:hover,
 .navBtn:hover {
   color: var(--frical-white);
-  background: rgba(126, 217, 87, 0.07);
+  background: rgba(111, 203, 111, 0.07);
 }
 
 .chevron {
@@ -91,7 +91,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.14);
+  border: 1px solid rgba(111, 203, 111, 0.14);
   border-radius: 8px;
   padding: 6px;
   min-width: 230px;
@@ -113,7 +113,7 @@
 
 .dropdownLink:hover {
   color: var(--frical-green);
-  background: rgba(126, 217, 87, 0.08);
+  background: rgba(111, 203, 111, 0.08);
 }
 
 .dropdownLinkFeatured {
@@ -122,7 +122,7 @@
 }
 
 .dropdownLinkFeatured:hover {
-  background: rgba(126, 217, 87, 0.12);
+  background: rgba(111, 203, 111, 0.12);
 }
 
 .dropdownBadge {
@@ -228,7 +228,7 @@
     width: min(85vw, 320px);
     height: 100dvh;
     background: var(--frical-coal);
-    border-left: 1px solid rgba(126, 217, 87, 0.12);
+    border-left: 1px solid rgba(111, 203, 111, 0.12);
     padding: 88px 20px 40px;
     overflow-y: auto;
     transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
@@ -261,8 +261,8 @@
     position: static;
     transform: none;
     box-shadow: none;
-    background: rgba(126, 217, 87, 0.04);
-    border-color: rgba(126, 217, 87, 0.08);
+    background: rgba(111, 203, 111, 0.04);
+    border-color: rgba(111, 203, 111, 0.08);
     margin-top: 4px;
     border-radius: 6px;
   }

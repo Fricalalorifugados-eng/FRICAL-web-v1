@@ -26,8 +26,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(126, 217, 87, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(126, 217, 87, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(111, 203, 111, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 203, 111, 0.035) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 75%);
@@ -49,7 +49,7 @@
   right: -15%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(126, 217, 87, 0.05) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(111, 203, 111, 0.05) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -102,7 +102,7 @@
   align-items: flex-start;
   gap: 0;
   padding-top: 44px;
-  border-top: 1px solid rgba(126, 217, 87, 0.1);
+  border-top: 1px solid rgba(111, 203, 111, 0.1);
   flex-wrap: wrap;
 }
 
@@ -118,7 +118,7 @@
 .statDivider {
   width: 1px;
   height: 56px;
-  background: rgba(126, 217, 87, 0.12);
+  background: rgba(111, 203, 111, 0.12);
   align-self: center;
   margin-right: 40px;
   flex-shrink: 0;

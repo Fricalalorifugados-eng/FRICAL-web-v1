@@ -272,9 +272,9 @@ export default function AdminOfertas() {
                       type="checkbox"
                       checked={editing.activa}
                       onChange={e => fieldChange('activa', e.target.checked)}
-                      style={{ accentColor: '#7ed957', width: 16, height: 16, cursor: 'pointer' }}
+                      style={{ accentColor: '#6FCB6F', width: 16, height: 16, cursor: 'pointer' }}
                     />
-                    <span style={{ color: editing.activa ? '#7ed957' : '#666', fontSize: 13 }}>
+                    <span style={{ color: editing.activa ? '#6FCB6F' : '#666', fontSize: 13 }}>
                       {editing.activa ? 'Activa (visible en web)' : 'Inactiva (oculta en web)'}
                     </span>
                   </label>

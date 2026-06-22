@@ -7,7 +7,7 @@ import styles from './Proyectos.module.css'
 const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 
 const CAT_COLORS = {
-  Aislamiento: '#7ed957',
+  Aislamiento: '#6FCB6F',
   Conductos: '#5bbfe8',
   Climatización: '#e8a95b',
 }

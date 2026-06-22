@@ -5,7 +5,7 @@ import { useProximos } from '../hooks/useContent'
 import styles from './Proximamente.module.css'
 
 const CAT_COLORS = {
-  Aislamiento: '#7ed957',
+  Aislamiento: '#6FCB6F',
   Conductos:   '#5bbfe8',
   Climatización: '#e8a95b',
 }

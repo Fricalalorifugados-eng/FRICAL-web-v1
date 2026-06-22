@@ -20,14 +20,14 @@
 
 .card {
   background: var(--frical-coal);
-  border: 1px solid rgba(126, 217, 87, 0.07);
+  border: 1px solid rgba(111, 203, 111, 0.07);
   border-radius: 12px;
   overflow: hidden;
   transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  border-color: rgba(126, 217, 87, 0.2);
+  border-color: rgba(111, 203, 111, 0.2);
   transform: translateY(-5px);
   box-shadow: 0 20px 56px rgba(0, 0, 0, 0.4);
 }
@@ -70,7 +70,7 @@
 
 .pipe {
   height: 2px;
-  background: linear-gradient(to right, transparent, rgba(126, 217, 87, 0.08), rgba(126, 217, 87, 0.15), transparent);
+  background: linear-gradient(to right, transparent, rgba(111, 203, 111, 0.08), rgba(111, 203, 111, 0.15), transparent);
   border-radius: 2px;
 }
 
@@ -84,7 +84,7 @@
   align-items: center;
   background: rgba(10, 10, 10, 0.75);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(126, 217, 87, 0.18);
+  border: 1px solid rgba(111, 203, 111, 0.18);
   border-radius: 8px;
   padding: 8px 10px;
   min-width: 46px;
