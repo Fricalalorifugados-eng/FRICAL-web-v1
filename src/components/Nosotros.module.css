@@ -150,6 +150,7 @@
 
 .badge {
   position: absolute;
+  z-index: 5;
   top: -24px;
   right: -24px;
   display: flex;
@@ -194,6 +195,7 @@
 
 .pill {
   position: absolute;
+  z-index: 5;
   bottom: -20px;
   left: -20px;
   display: inline-flex;
