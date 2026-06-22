@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 const BASE_TITLE       = 'FRICAL CALORIFUGADOS, S.L. | Aislamiento Térmico Industrial · Barcelona'
 const BASE_DESCRIPTION = 'Especialistas en aislamiento térmico industrial, calorifugado, conductos de ventilación y climatización HVAC en Barcelona y área metropolitana. Más de 25 años de experiencia.'
 const BASE_URL         = 'https://fricalcalorifugados.com'
-const BASE_OG_IMAGE    = `${BASE_URL}/og-image.jpg`
+const BASE_OG_IMAGE    = `${BASE_URL}/FRICAL-F-mark-transparente.png`
 
 function setMeta(name, content, attr = 'name') {
   let el = document.querySelector(`meta[${attr}="${name}"]`)
