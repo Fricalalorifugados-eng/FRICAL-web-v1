@@ -31,6 +31,13 @@
   flex-shrink: 0;
 }
 
+.logoImg {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 .logoSub {
   font-size: 9px;
   font-family: var(--font-display);

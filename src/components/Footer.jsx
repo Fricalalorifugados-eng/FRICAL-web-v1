@@ -41,7 +41,7 @@ export default function Footer() {
           <div className={styles.grid}>
             <div className={styles.brand}>
               <Link to="/" className={styles.logo} aria-label="FRICAL – inicio">
-                <img src="/logo-frical.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
+                <img src="/FRICAL-logo-transparente.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
               </Link>
               <p className={styles.brandDesc}>
                 Especialistas en aislamiento térmico industrial y calorifugado.

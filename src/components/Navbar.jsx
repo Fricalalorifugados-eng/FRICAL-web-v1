@@ -108,7 +108,7 @@ export default function Navbar() {
             aria-label="FRICAL – volver al inicio"
             onClick={() => { setMenuOpen(false); if (isHome) window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           >
-            <img src="/logo-frical.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
+            <img src="/FRICAL-logo-transparente.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
           </Link>
 
           {/* Nav */}

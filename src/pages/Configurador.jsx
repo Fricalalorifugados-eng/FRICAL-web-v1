@@ -653,10 +653,7 @@ export default function Configurador() {
           <div className={styles.topBar}>
             <div className={`container ${styles.topBarInner}`}>
               <Link to="/" className={styles.logo} aria-label="FRICAL – inicio">
-                <svg width="90" height="22" viewBox="0 0 110 28" fill="none" aria-hidden="true">
-                  <text x="0" y="22" fontFamily="Archivo, Arial Black, sans-serif" fontSize="24" fontWeight="900" fill="#7ed957">FRICAL</text>
-                </svg>
-                <span className={styles.logoSub}>CALORIFUGADOS, S.L.</span>
+                <img src="/FRICAL-logo-transparente.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
               </Link>
             </div>
           </div>
@@ -688,10 +685,7 @@ export default function Configurador() {
       <div className={styles.topBar}>
         <div className={`container ${styles.topBarInner}`}>
           <Link to="/" className={styles.logo} aria-label="FRICAL – inicio">
-            <svg width="90" height="22" viewBox="0 0 110 28" fill="none" aria-hidden="true">
-              <text x="0" y="22" fontFamily="Archivo, Arial Black, sans-serif" fontSize="24" fontWeight="900" fill="#7ed957">FRICAL</text>
-            </svg>
-            <span className={styles.logoSub}>CALORIFUGADOS, S.L.</span>
+            <img src="/FRICAL-logo-transparente.png" alt="FRICAL Calorifugados" className={styles.logoImg} />
           </Link>
           <nav className={styles.breadcrumb} aria-label="Migas de pan">
             <Link to="/">Inicio</Link>

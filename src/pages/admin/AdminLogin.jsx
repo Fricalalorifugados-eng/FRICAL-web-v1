@@ -29,7 +29,7 @@ export default function AdminLogin() {
     <div className={styles.loginPage}>
       <div className={styles.loginBox}>
         <div className={styles.loginLogo}>
-          <img src="/logo-frical.png" alt="FRICAL Calorifugados" className={styles.loginLogoImg} />
+          <img src="/FRICAL-logo-transparente.png" alt="FRICAL Calorifugados" className={styles.loginLogoImg} />
           <span>Panel de administración</span>
         </div>
 

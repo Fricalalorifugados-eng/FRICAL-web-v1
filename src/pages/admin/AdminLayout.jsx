@@ -55,7 +55,7 @@ export default function AdminLayout() {
     <div className={styles.wrap}>
       <aside className={styles.sidebar}>
         <div className={styles.sidebarLogo}>
-          <img src="/logo-frical.png" alt="FRICAL Calorifugados" className={styles.sidebarLogoImg} />
+          <img src="/FRICAL-logo-transparente.png" alt="FRICAL Calorifugados" className={styles.sidebarLogoImg} />
           <span>Panel Admin</span>
         </div>
 
